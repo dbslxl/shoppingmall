@@ -10,4 +10,8 @@ public class ClientController {
 	public String main() {
 		return "client/main";
 	}
+	@GetMapping("/user/login")
+	public String user_login() {
+		return "client/user/login";
+	}
 }
