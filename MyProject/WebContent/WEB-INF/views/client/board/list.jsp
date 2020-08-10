@@ -23,43 +23,57 @@
 	<c:import url="/WEB-INF/views/client/include/top_menu.jsp"/>
 	
 	<div class='container' style='margin-top:100px'>
+		<div class="d-flex justify-content-between">
+		<h2 class="ml-2" style="color:rgb(10,20,100)">[커뮤니티] </h2>
+		<div>
+			<button class="btn btn-danger">추천순</button>
+			<button class="btn btn-info ml-1">최신순</button>
+		</div>
+		</div>
+		<div style='margin-top:20px; margin-bottom:20px'>
+			
+		</div>
 		
-		<h1>${board_info_bean.board_info_name }</h1>
-		
-		<div style='margin-top:20px'></div>
 		
 		<table class='table table-hover text-center'>
 			<thead>
 				<tr>
 					<th style='width:10%'>글번호</th>
 					<th class='text-left'>제목</th>
-					<th style='width:20%'>작성자</th>
-					<th style='width:10%'>조회수</th>
+					<th style='width:16%'>작성자</th>
+					<th style='width:7%'>조회수</th>
+					<th style="width:7%">추천수</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var='obj' items="${content_list }">
+				<c:forEach var='obj' begin="1" end="20">
 				<tr>
-					<td>${obj.content_idx }</td>
+					<td>${obj}</td>
 					<c:url var='path' value='/board/read'>
-						<c:param name="content_idx" value='${obj.content_idx }'/>
+						<%-- <c:param name="content_idx" value='${obj.content_idx }'/>
 						<c:param name="board_info_idx" value='${board_info_idx }'/>
-						<c:param name="page" value='${page_bean.currentPage }'></c:param>
+						<c:param name="page" value='${page_bean.currentPage }'></c:param> --%>
 					</c:url>
-					<td class='text-left'><a href='${path}'>${obj.content_subject }</a></td>
-					<td>${obj.content_writer_name }</td>
-					<td>${obj.content_read_cnt }</td>
+					<td class='text-left'><a href='${path}'>제목입니다.</a></td>
+					<td>작성자 </td>
+					<td>100</td>
+					<td>10</td>
 				</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		
+		<div class='text-right' style='margin-top:10px' >
+		<c:url var='path' value='/board/write'/>
+		<a href='${path }' class='btn btn-primary'>글쓰기</a>
+		</div>
+		
 		<%-- pagination --%>
 		
-		<ul class='pagination justify-content-center' style='margin-top:50px'>
+		<ul class='pagination justify-content-center' style='margin-top:10px'>
 			
 			<c:choose>
-				<c:when test="${page_bean.minPage == 1 }">
+				<c:when test="${1 == 2 }">
 					<li class='page-item disabled'>
 						<c:url var='path' value='/board/list'/>
 						<a href='${path }' class='page-link'>이전</a>
@@ -68,22 +82,17 @@
 				<c:otherwise>
 					<li class='page-item'>
 						<c:url var='path' value='/board/list'>
-							<c:param name="board_info_idx" value='${board_info_idx }'/>
-							<c:param name="page" value='${page_bean.minPage - 1 }'/>
+							<%-- <c:param name="board_info_idx" value='${board_info_idx }'/>
+							<c:param name="page" value='${page_bean.minPage - 1 }'/> --%>
 						</c:url>
 						<a href='${path }' class='page-link'>이전</a>
 					</li>
 				</c:otherwise>
-			</c:choose>
-			
+			</c:choose>		
 			
 				
-			<c:forEach var='i' begin='${page_bean.minPage }' end='${page_bean.maxPage }'>
-			<c:url var='path' value='/board/list'>
-				<c:param name="board_info_idx" value='${board_info_idx }'/>
-				<c:param name="page" value='${i }'/>
-			</c:url>
-			
+			<c:forEach var='i' begin='1' end='10'>
+			<c:url var='path' value='/board/list'/>			
 			<c:choose>
 				<c:when test="${page_bean.currentPage == i}">
 					<li class='page-item active'>							
@@ -95,13 +104,12 @@
 						<a href='${path }' class='page-link'>${i }</a>
 					</li>
 				</c:otherwise>
-			</c:choose>
-			
+			</c:choose>		
 			
 			</c:forEach>
 			
 			<c:choose>
-				<c:when test="${page_bean.maxPage >= page_bean.totalPage }">
+				<c:when test="${1==2 }">
 					<li class='page-item disabled'>
 						<a href='${path }' class='page-link'>다음</a>
 					</li>
@@ -109,27 +117,20 @@
 				<c:otherwise>
 					<li class='page-item'>
 						<c:url var='path' value='/board/list'>
-							<c:param name="board_info_idx" value='${board_info_idx }'/>
-							<c:param name="page" value='${page_bean.maxPage + 1 }'/>
+							<%-- <c:param name="board_info_idx" value='${board_info_idx }'/>
+							<c:param name="page" value='${page_bean.maxPage + 1 }'/> --%>
 						</c:url>
 						<a href='${path }' class='page-link'>다음</a>
 					</li>
 				</c:otherwise>
 			</c:choose>
+						
+		</ul>		
 			
-			
-				
-		</ul>
-		
-		
-		<c:if test='${board_info_idx == 3 || board_info_idx == 4 }'>
-		<div class='text-right'>
-			<c:url var='path' value='/board/write'>
-				<c:param name="board_info_idx" value='${board_info_idx }'/>
-			</c:url>
-			<a href='${path }' class='btn btn-primary'>글쓰기</a>
-		</div>
-		</c:if>
-	</div>
+	</div>		
+	
+	<div style="margin-top:70px"></div>
+	<c:import url="/WEB-INF/views/client/include/footer.jsp"/>
+	
 </body>
 </html>

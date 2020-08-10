@@ -35,7 +35,7 @@
 			<li data-target="#demo" data-slide-to="2"></li>
 		</ul>
 		<!-- The slideshow -->
-		<div class="carousel-inner" style="margin-top: 60px">
+		<div class="carousel-inner" style="margin-top: 56px">
 			<div class="carousel-item active">
 				<c:url var="path" value="/image/banner1.jpg" />
 				<img width="100%" src="${path}" alt="Los Angeles">
@@ -84,7 +84,7 @@
 					<div class="card-body">
 						<h3 class="card-title">상품1</h3>
 						<p class="card-text">100,000원</p>
-						<a href="#" class="btn btn-primary">자세히보기</a>
+						<a href="${path}" class="btn btn-primary">자세히보기</a>
 					</div>
 				</div>
 			</div>
@@ -97,7 +97,7 @@
 					<div class="card-body">
 						<h3 class="card-title">상품1</h3>
 						<p class="card-text">100,000원</p>
-						<a href="#" class="btn btn-primary">자세히보기</a>
+						<a href="${path}" class="btn btn-primary">자세히보기</a>
 					</div>
 				</div>
 			</div>
@@ -110,7 +110,7 @@
 					<div class="card-body">
 						<h3 class="card-title">상품1</h3>
 						<p class="card-text">100,000원</p>
-						<a href="#" class="btn btn-primary">자세히보기</a>
+						<a href="${path}" class="btn btn-primary">자세히보기</a>
 					</div>
 				</div>
 			</div>

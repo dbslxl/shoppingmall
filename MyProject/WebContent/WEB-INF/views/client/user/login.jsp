@@ -33,19 +33,19 @@
 				<div class="card-body">
 					<h1 class="text-center">로그인</h1>
 					<c:url var="path" value="/user/login_pro"></c:url>
-					<form:form action="${path}" modelAttribute="tempUserBean">
+					<form action="${path}" >
 						<div class="form-group">
-							<form:label path="user_id">아이디</form:label>
-							<form:input path="user_id" class="form-control"/>
-							<form:errors path="user_id" style="color:red"/> 
+							<label >아이디</label>
+							<input  class="form-control"/>
+							<!-- <form:errors  style="color:red"/>  -->
 						</div>
 						<div class="form-group">
-							<form:label path="user_pw">비밀번호</form:label>
-							<form:password path="user_pw" class="form-control"/>
-							<form:errors path="user_pw" style="color:red"/> 
+							<label>비밀번호</label>
+							<password class="form-control"/>
+							
 						</div>
 						<div class="form-group" style="margin:50px 10px 15px 10px">
-							<form:button class="btn btn-primary" style="width:100%">로그인</form:button>
+							<button class="btn btn-primary" style="width:100%">로그인</button>
 							
 						</div>
 						<div class="form-group" style="margin:15px 10px">
@@ -53,7 +53,7 @@
 							<a href="${path}" class="btn btn-info" style="width:100%">회원가입</a>
 						</div>
 						
-					</form:form>
+					</form>
 				</div>
 				
 			</div>

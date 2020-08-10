@@ -11,10 +11,7 @@
 	padding: 5px;
 	color: black;
 }
-.logo:hover{
-	color:teal;
-	background-color:rgb(50,50,150,0.9)
-}
+
 .community{
 	color:rgb(50,50,150,0.9)
 }
@@ -24,27 +21,28 @@
 <div class="container">
 	<%-- 로고 --%>
 	<c:url var="path" value="/main"/>
-	<a href='${path }' class='navbar-brand logo' style="color:teal">JICA</a>
+	<a href='${path }' class="btn  btn-outline-info mr-3 ">Hyun</a>
+
 	<%-- 버튼 --%>
 	<button class='navbar-toggler' type='button' data-toggle='collapse'
 	        data-target='#navMenu'>
 		<span class='navbar-toggler-icon'></span>        
 	</button>
 	<%-- 메뉴 --%>
-	<div class='collapse navbar-collapse' id='navMenu'>
+	<div class='collapse navbar-collapse ' id='navMenu'>
 		
 		<%-- 좌측 메뉴 --%>
 		<ul class='navbar-nav'>
 			<li class='nav-item'>
-				<c:url var='path' value='#'/>
+				<c:url var='path' value='/product/list'/>
 				<a href='${path }' class='nav-link'>Men</a>
 			</li>
 			<li class='nav-item'>
-				<c:url var='path' value='#'/>
+				<c:url var='path' value='/product/list'/>
 				<a href='${path }' class='nav-link'>Women</a>
 			</li>
 			<li class='nav-item'>
-				<c:url var='path' value='#'/>
+				<c:url var='path' value='/product/list'/>
 				<a href='${path }' class='nav-link'>Kids</a>
 			</li>
 			
@@ -52,14 +50,15 @@
 				<a href='#' class='nav-link dropdown-toggle' 
 							data-toggle='dropdown'>Board</a>							
 				<div class='dropdown-menu'>
-					<a href="#" class='dropdown-item'>공지사항</a>
-					<a href="#" class='dropdown-item'>FAQ</a>
-					<a href="#" class='dropdown-item'>Q&A</a>			
+					<c:url var='path' value='/board/list'/>
+					<a href="${path }" class='dropdown-item'>공지사항</a>
+					<a href="${path }" class='dropdown-item'>FAQ</a>
+					<a href="${path }" class='dropdown-item'>Q&A</a>			
 				</div>
 			</li>
 			
 			<li class='nav-item'>
-				<c:url var='path' value='#'/>
+				<c:url var='path' value='/board/list'/>
 				<a href='${path }' class='nav-link community' style="color:rgb(75,150,255)">Community</a>
 			</li>									
 		</ul>

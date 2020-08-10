@@ -76,90 +76,86 @@
 					<div class='card-body'>
 					<h1 class="text-center">회원가입</h1>					
 					<c:url var="path" value="/user/join_pro"/>
-					<form:form action="${path}" modelAttribute="joinUserBean">
+					<form action="${path}">
 						
-						<form:hidden path="check_user_id"/>
 						
 						<div class='form-group'>
-							<form:label path="user_name">이름</form:label>
-							<form:input path="user_name" class='form-control'/>
-							<p style="color:red"><form:errors path="user_name"></form:errors> </p>
+							<label for="user_name">이름</label>
+							<input id="user_name" class='form-control'/>
+							
 						</div>
 						<div class='form-group'>
-							<form:label path="user_id">아이디</form:label>
+							<label for="user_id">아이디</label>
 							<div class='input-group'>
-								<form:input path="user_id" class='form-control'/>
+								<input type="text" id="user_id" class='form-control'/>
 								<div class='input-group-append'>
 									<button type='button' class='btn btn-primary' onclick="checkNewId()">
 										중복확인
 									</button>
 								</div>
 							</div>
-							<p style="color:red"><form:errors path="user_id"></form:errors> </p>
-							<p style="color:red"><form:errors path="check_user_id"></form:errors> </p>
+							
 						</div>
 						
 						<div class='form-group'>
-							<form:label path='user_pw'>비밀번호</form:label>
-							<form:password path='user_pw' class='form-control'/>
-							<p style='color:red'><form:errors path="user_pw"/></p>
+							<label for='user_pw'>비밀번호</label>
+							<input type="text" id='user_pw' class='form-control'/>
+							
 						</div>
 						<div class='form-group'>
-							<form:label path='user_pw2'>비밀번호 확인</form:label>
-							<form:password path='user_pw2' class='form-control'/>
-							<p style='color:red'><form:errors path="user_pw2"/></p>
+							<label for='user_pw2'>비밀번호 확인</label>
+							<form type="text" path='user_pw2' class='form-control'/>
+							
 						</div>
 						<div class='form-group'>
 							<label for="sample2_postcode">우편번호</label>
 							<div class='input-group'>
-								<form:input id='sample2_postcode' path="user_postcode" class='form-control' readonly="true"/>
+								<input type="text" id='sample2_postcode' path="user_postcode" class='form-control' readonly="true"/>
 								<div class='input-group-append'>
 									<button type='button' class='btn btn-primary' onclick="sample2_execDaumPostcode()">
 										주소검색
 									</button>
 								</div>								
 							</div>
-							<p style='color:red'><form:errors path="user_postcode"/></p>
+							
 						</div>
 						
 						<div class='form-group'>
-							<form:input id='sample2_address' path="user_address1" class='form-control' readonly="true"/>
-							<p style='color:red'><form:errors path="user_address1"/></p>
+							<input type="text" id='sample2_address'  class='form-control' readonly="true"/>
+							
 						</div>						
 						<div class='form-group'>
-							<form:input id='sample2_detailAddress' path="user_address2" class='form-control'/>
-							<p style='color:red'><form:errors path="user_address2"/></p>
+							<input type="text"  id='sample2_detailAddress'  class='form-control'/>
+							
 						</div>
 						
 						<div class='form-group'>
-							<form:label path='user_phone1'>휴대폰 번호</form:label>
+							<label for='user_phone1'>휴대폰 번호</label>
 							<div class='row'>
 								<div class='col-md-4'>
-									<form:select path='user_phone1' class='form-control'>
-										<form:option value='010'>010</form:option>
-										<form:option value='011'>011</form:option>
-										<form:option value='017'>017</form:option>
-										<form:option value='018'>018</form:option>
-										<form:option value='019'>019</form:option>
-									</form:select>
+									<select path='user_phone1' class='form-control'>
+										<option value='010'>010</option>
+										<option value='011'>011</option>
+										<option value='017'>017</option>
+										<option value='018'>018</option>
+										<option value='019'>019</option>
+									</select>
 								</div>
 								<div class='col-md-4'>
-									<form:input path='user_phone2' class='form-control' maxlength="4"/>
+									<input type="text" id='user_phone2' class='form-control' maxlength="4"/>
 								</div>
 								<div class='col-md-4'>
-									<form:input path='user_phone3' class='form-control' maxlength="4"/>
+									<input type="text" id='user_phone3' class='form-control' maxlength="4"/>
 								</div>
 								
 							</div>
-							<p style='color:red'><form:errors path="user_phone1"/></p>
-							<p style='color:red'><form:errors path="user_phone2"/></p>
-							<p style='color:red'><form:errors path="user_phone3"/></p>
+							
 						</div>
 						
 						<div class='form-group' style="margin:30px 10px">
-							<form:button class='btn btn-info' style="width:100%;">가입완료</form:button>							
+							<button type="submit" class='btn btn-info' style="width:100%;">가입완료</button>							
 						</div>
-					</form:form>
+					</form>
 					</div>
 				</div>
 			</div>
