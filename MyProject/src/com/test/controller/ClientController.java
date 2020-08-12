@@ -2,6 +2,7 @@ package com.test.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ClientController {
@@ -17,6 +18,10 @@ public class ClientController {
 	@GetMapping("/user/join")
 	public String user_join() {
 		return "client/user/join";
+	}
+	@PostMapping("/user/join_pro")
+	public String user_join_pro() {
+		return "client/user/join_pro";
 	}
 	
 	@GetMapping("/board/list")

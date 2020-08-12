@@ -9,11 +9,14 @@ drop sequence BUY_TEMP_SEQ;
 drop sequence BUY_INFO_SEQ;
 
 drop table product_category_info_table;
-drop table board_info_table;
-drop table user_info_table;
-drop table product_info_table;
+drop table board_category_table;
+drop table user_table;
+drop table product_table;
 drop table content_table;
-drop table manager_reply_table;
+drop table reply_table;
+drop table like_table;
+drop table best_product_table;
+drop table new_product_table;
 drop table cart_table;
 drop table buy_temp_table;
 drop table buy_info_table;
@@ -21,16 +24,23 @@ drop table buy_info_table;
 --------------------------------------------------
 
 create sequence PRODUCT_CATEGORY_INFO_SEQ;
-create sequence BOARD_INFO_SEQ;
-create sequence USER_INFO_SEQ;
-create sequence PRODUCT_INFO_SEQ;
+create sequence BOARD_CATEGORY_SEQ;
+
+create sequence USER_SEQ;
+create sequence PRODUCT_SEQ;
 create sequence CONTENT_SEQ;
-create sequence MANAGER_REPLY_SEQ;
+
+create sequence REPLY_SEQ;
+create sequence LIKE_SEQ;
+
+create sequence BEST_PRODUCT_SEQ;
+create sequence NEW_PRODUCT_SEQ; 
 create sequence CART_SEQ;
 create sequence BUY_TEMP_SEQ;
-create sequence BUY_INFO_SEQ;
+create sequence BUY_SEQ;
+--------------------------------------------------------------------------
 
-create table product_category_info_table(
+create table product_category_table(
 product_category_idx number constraint product_category_pk primary key,
 product_category_ip varchar2(50) not null,
 product_category_date date not null,
@@ -39,7 +49,7 @@ product_category_name varchar2(500) not null
 );
 
 create table board_info_table(
-board_info_idx number constraint board_info_pk primary key,
+board_info_idx number constraint board_category_pk primary key,
 board_info_ip varchar2(50) not null,
 board_info_date date not null,
 board_info_status number not null,
@@ -48,11 +58,8 @@ board_info_user_write_chk number not null,
 board_info_manager_replay_chk number not null
 );
 
-
-
-
-create table user_info_table(
-user_idx number constraint user_info_pk primary key,
+create table user_table(
+user_idx number constraint user_pk primary key,
 user_ip varchar2(50) not null,
 user_status number not null,
 user_date date not null,
@@ -60,7 +67,7 @@ user_grade number not null,
 user_name varchar2(20) not null,
 user_id varchar2(500) not null,
 user_pw varchar2(500) not null,
-user_post_code varchar2(10) not null,
+user_postcode varchar2(10) not null,
 user_address1 varchar2(500) not null,
 user_address2 varchar2(500) not null,
 user_phone1 varchar2(10) not null,
@@ -68,21 +75,19 @@ user_phone2 varchar2(10) not null,
 user_phone3 varchar2(10) not null
 );
 
-
-create table product_info_table(
-product_info_idx	number constraint product_info_pk primary key,
-product_info_ip	varchar2(50) not null,
-product_info_status	number not null,
-product_info_date	date not null,
-product_info_name	varchar2(500) not null,
-product_info_price	number not null,
-product_info_image	varchar2(500) not null,
-product_info_detail_image	varchar2(500) not null,
-product_info_category_idx	number not null
+create table product_table(
+product_idx	number constraint product_info_pk primary key,
+product_ip	varchar2(50) not null,
+product_status	number not null,
+product_date	date not null,
+product_name	varchar2(500) not null,
+product_price	number not null,
+product_image	varchar2(500) not null,
+product_detail_image	varchar2(500) not null,
+product_category_idx	number not null
            constraint product_info_fk
-           references product_category_info_table(product_category_idx)
+           references product_category_table(product_category_idx)
 );
-
 
 create table content_table(
 content_idx	number constraint content_pk primary key,
@@ -92,7 +97,7 @@ content_date	date not null,
 content_subject	varchar2(500) not null,
 content_writer_idx	number not null
 					constraint content_fk1
-					references user_info_table(user_idx),
+					references user_table(user_idx),
 content_read_cnt	number not null,
 content_board_info_idx	number not null
                     constraint content_fk2
@@ -101,105 +106,75 @@ content_text	long not null
 
 );
 
-drop table manager_reply_table;
-
-create table manager_reply_table(
-manager_reply_idx	number constraint manager_reply_pk primary key,
-manager_reply_ip	varchar2(50) not null,
-manager_reply_date	date not null,
-manager_reply_status	number not null,
-manager_reply_text	long not null,
-manager_reply_content_idx	number not null
-                 constraint manager_reply_fk
-                 references content_table(content_idx)
-);
 
 create table cart_table(
 cart_idx	number constraint cart_pk primary key,
 cart_date	date not null,
 cart_product_idx	number not null
 			constraint cart_fk
-			references product_info_table(product_info_idx)
+			references product_table(product_idx)
 );
 
 create table buy_temp_table(
 buy_temp_idx	number constraint buy_temp_pk primary key,
 buy_temp_product_idx	number not null
                   constraint buy_temp_fk
-                  references product_info_table(product_info_idx),
+                  references product_table(product_idx),
 buy_temp_product_name	varchar2(500) not null,
 buy_temp_product_price	number not null
 );
 
-create table buy_info_table(
-buy_info_idx	number constraint buy_info_pk primary key,
-buy_info_ip	varchar2(50) not null,
-buy_info_status	number not null,
-buy_info_date	date not null,
-buy_info_product_name	varchar2(500) not null,
-buy_info_product_price	number not null,
-buy_info_user_idx	number not null
+create table buy_table(
+buy_idx	number constraint buy_info_pk primary key,
+buy_ip	varchar2(50) not null,
+buy_status	number not null,
+buy_date	date not null,
+buy_product_name	varchar2(500) not null,
+buy_product_price	number not null,
+buy_user_idx	number not null
                     constraint buy_info_fk
-                    references user_info_table(user_idx),
-reciever_name	varchar2(500) not null,
-reciever_post_code	varchar2(10) not null,
-reciever_address1	varchar2(500) not null,
-reciever_address2	varchar2(500) not null,
-reciever_phone1	varchar2(10) not null,
-reciever_phone2	varchar2(10) not null,
-reciever_phone3	varchar2(10) not null
-
+                    references user_table(user_idx),
+buy_reciever_name	varchar2(500) not null,
+buy_reciever_post_code	varchar2(10) not null,
+buy_reciever_address1	varchar2(500) not null,
+buy_reciever_address2	varchar2(500) not null,
+buy_reciever_phone1	varchar2(10) not null,
+buy_reciever_phone2	varchar2(10) not null,
+buy_reciever_phone3	varchar2(10) not null
 );
 
--------------------------------------------
+create table best_product_table(
+best_product_idx number constraint best_product_pk primary key,
+best_product_date date,
+best_porduct_product_idx constraint best_product_fk references product_table(product_idx)
+);
 
-insert into user_info_table
-(user_idx, user_ip, user_status, user_date, user_grade, user_id,
- user_pw, user_post_code, user_address1, user_address2, user_phone1,
- user_phone2, user_phone3, user_name)
-values
-(USER_INFO_SEQ.nextval, '0.0.0.0', 1, sysdate, 2, 'manager',
- '1234', '11111', '주소1', '주소2', '010', '1111', '1111', '관리자');
- 
- 
-commit;
+create table new_product_table(
+new_product_idx number constraint new_product_pk primary key,
+new_product_date date,
+new_porduct_product_idx constraint new_product_fk references product_table(product_idx)
+);
 
+create table reply_table(
+reply_idx	number constraint reply_pk primary key,
+reply_ip	varchar2(50) not null,
+reply_date	date not null,
+reply_status	number not null,
+reply_text	long not null,
+reply_content_idx	number not null
+                 constraint reply_fk
+                 references content_table(content_idx)
+);
 
-insert into board_info_table 
-(board_info_idx, board_info_ip, board_info_date, board_info_status,
- board_info_name, board_info_user_write_chk, 
- board_info_manager_replay_chk)
-values
-(1, '1.1.1.1', sysdate, 1, '공지사항', 2, 2);
-
-insert into board_info_table 
-(board_info_idx, board_info_ip, board_info_date, board_info_status,
- board_info_name, board_info_user_write_chk, 
- board_info_manager_replay_chk)
-values
-(2, '1.1.1.1', sysdate, 1, 'FAQ', 2, 2);
-
-insert into board_info_table 
-(board_info_idx, board_info_ip, board_info_date, board_info_status,
- board_info_name, board_info_user_write_chk, 
- board_info_manager_replay_chk)
-values
-(3, '1.1.1.1', sysdate, 1, '상품문의', 1, 1);
-
-insert into board_info_table 
-(board_info_idx, board_info_ip, board_info_date, board_info_status,
- board_info_name, board_info_user_write_chk, 
- board_info_manager_replay_chk)
-values
-(4, '1.1.1.1', sysdate, 1, '기타문의', 1, 1);
-
-commit;
-
-
-
-
-
-
+create table like_table(
+like_idx number not null,
+like_ip varchar2(50) not null,
+like_date date not null,
+like_status number not null,
+like_content_idx not null constraint like_fk1 references content_table(content_idx),
+like_user_idx not null constraint like_fk2 references user_table(user_idx),
+constraint like_pk primary key(like_content_idx, like_user_idx)
+); 
 
 
 

@@ -17,6 +17,14 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
+
+<style>
+	a{
+		color:black;
+		text-decoration:none;
+	}
+	
+</style>
 <title>/WEB-INF/views/client/board/list.jsp</title>
 </head>
 <body>
@@ -54,7 +62,7 @@
 						<c:param name="board_info_idx" value='${board_info_idx }'/>
 						<c:param name="page" value='${page_bean.currentPage }'></c:param> --%>
 					</c:url>
-					<td class='text-left'><a href='${path}'>제목입니다.</a></td>
+					<td class='text-left'><a class="link" href='${path}'>제목입니다.</a></td>
 					<td>작성자 </td>
 					<td>100</td>
 					<td>10</td>

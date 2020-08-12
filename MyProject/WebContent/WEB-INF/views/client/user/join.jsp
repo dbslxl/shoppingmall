@@ -16,10 +16,11 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
 <%-- 다음 주소 검색 js 라이브러리 --%>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <c:url var='path' value='/js/daum_address.js'/>
-<script src='${path }'></script>
+<script src='${path}'></script>
 
 <script>
 	function checkNewId(){
@@ -53,6 +54,56 @@
 			}
 		})
 	}
+	
+	function check_input(){
+		// 사용자가 입력한 값을 가지고 온다.
+		var user_name = $("#user_name").val().trim()
+		var user_id = $("#user_id").val().trim()
+		var user_pw = $("#user_pw").val().trim()
+		var user_pw2 = $("#user_pw2").val().trim()
+		
+		// 각 결과 메시지를 초기화한다.
+		$("#user_name_result").text('')
+		$("#user_id_result").text('')
+		$("#user_pw_result").text('')
+		$("#user_pw2_result").text('')
+		
+		var chk = true
+		
+		// 유효성 감사
+		if(user_name.length == 0){
+			$("#user_name_result").text('이름을 입력해주세요')
+			chk = false
+		}
+		
+		if(user_id.length == 0){
+			$("#user_id_result").text('아이디를 입력해주세요')
+			chk = false
+		}
+		
+		if(user_id_chk == false){
+			$("#user_id_result").text('중복확인 검사를 해주세요')
+			chk = false
+		}
+		
+		if(user_pw.length == 0){
+			$("#user_pw_result").text('비밀번호를 입력해주세요')
+			chk = false
+		}
+		
+		if(user_pw2.length == 0){
+			$("#user_pw2_result").text('비밀번호를 입력해주세요')
+			chk = false
+		}
+		
+		if(user_pw != user_pw2){
+			$("#user_pw_result").text("비밀번호가 일치하지 않습니다")
+			$("#user_pw2_result").text("비밀번호가 일치하지 않습니다")
+			chk = false
+		}
+		
+		return chk		
+	}
 </script>
 <title>/WEB-INF/views/client/user/join.jsp</title>
 </head>
@@ -76,13 +127,13 @@
 					<div class='card-body'>
 					<h1 class="text-center">회원가입</h1>					
 					<c:url var="path" value="/user/join_pro"/>
-					<form action="${path}">
+					<form action="${path}" method="post" onsubmit='return check_input()'>
 						
 						
 						<div class='form-group'>
 							<label for="user_name">이름</label>
 							<input id="user_name" class='form-control'/>
-							
+							<p id="user_name_result" style="color:red"></p>
 						</div>
 						<div class='form-group'>
 							<label for="user_id">아이디</label>
@@ -93,24 +144,26 @@
 										중복확인
 									</button>
 								</div>
+								<p id="user_id_result" style="color:red"></p>
 							</div>
 							
 						</div>
 						
 						<div class='form-group'>
 							<label for='user_pw'>비밀번호</label>
-							<input type="text" id='user_pw' class='form-control'/>
-							
-						</div>
+							<input type="text" id='user_pw' class='form-control'/>	
+							<p id="user_result" style="color:red"></p>						
+						</div>						
 						<div class='form-group'>
 							<label for='user_pw2'>비밀번호 확인</label>
-							<form type="text" path='user_pw2' class='form-control'/>
-							
+							<input type="text" id='user_pw2' class='form-control'/>
+							<p id="user_pw2_result" style="color:red"></p>							
 						</div>
+						
 						<div class='form-group'>
 							<label for="sample2_postcode">우편번호</label>
 							<div class='input-group'>
-								<input type="text" id='sample2_postcode' path="user_postcode" class='form-control' readonly="true"/>
+								<input type="text" id='sample2_postcode' class='form-control' readonly="readonly"/>
 								<div class='input-group-append'>
 									<button type='button' class='btn btn-primary' onclick="sample2_execDaumPostcode()">
 										주소검색
@@ -118,10 +171,9 @@
 								</div>								
 							</div>
 							
-						</div>
-						
+						</div>						
 						<div class='form-group'>
-							<input type="text" id='sample2_address'  class='form-control' readonly="true"/>
+							<input type="text" id='sample2_address'  class='form-control' readonly="readonly"/>
 							
 						</div>						
 						<div class='form-group'>
@@ -133,7 +185,7 @@
 							<label for='user_phone1'>휴대폰 번호</label>
 							<div class='row'>
 								<div class='col-md-4'>
-									<select path='user_phone1' class='form-control'>
+									<select id='user_phone1' class='form-control'>
 										<option value='010'>010</option>
 										<option value='011'>011</option>
 										<option value='017'>017</option>
@@ -165,16 +217,6 @@
 	</div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
 
 
 
