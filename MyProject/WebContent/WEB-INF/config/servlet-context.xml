@@ -17,7 +17,10 @@
 	<mvc:annotation-driven/>
 	
 	<!-- 스캔할 패키지를 지정한다. -->
+	<context:component-scan base-package="com.test.beans"/>
 	<context:component-scan base-package="com.test.controller"/>
+	<context:component-scan base-package="com.test.service"/>
+	<context:component-scan base-package="com.test.dao"/>
 	
 	<!-- 
 		Controller가 반환하는 문자열 앞 뒤로 붙혀줄 문자열을 등록한다.
@@ -55,6 +58,18 @@
 	<bean class='org.mybatis.spring.SqlSessionTemplate' 
 	      id='sqlSessionTemplate'>
 		<constructor-arg ref='sqlSession'/>
+	</bean>
+	
+	<!-- message로 사용할 properties 파일을 동록한다. -->
+	<bean class="org.springframework.context.support.ReloadableResourceBundleMessageSource"	id="messageSource">
+		<property name="basenames">
+			<list>
+				<value>/WEB-INF/properties/error_message</value>
+			</list>
+		</property>
+	</bean>
+	<bean class="org.springframework.context.support.MessageSourceAccessor">
+		<constructor-arg ref="messageSource"></constructor-arg>
 	</bean>
 </beans>
 

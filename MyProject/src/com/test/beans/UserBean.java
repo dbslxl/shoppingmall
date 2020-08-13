@@ -1,5 +1,8 @@
 package com.test.beans;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class UserBean {
 	
 	private Integer user_idx;
@@ -7,14 +10,31 @@ public class UserBean {
 	private Integer user_status;
 	private String user_date;
 	private Integer user_grade;
+	
+	@Size(min=2,max=10)
+	@Pattern(regexp = "[가-힣]*")
 	private String user_name;
+	
+	@Size(min=4, max = 15)
+	@Pattern(regexp = "[a-zA-Z0-9]*")
 	private String user_id;
+	
+	@Size(min=4, max=15)
+	@Pattern(regexp = "[a-zA-Z0-9]*")
 	private String user_pw;
+	
+	private String user_pw2;
 	private String user_postcode;
 	private String user_address1;
-	private String user_address2;
-	private String user_phoen1;
+	private String user_address2;	
+	private String user_phone1;
+	
+	@Size(min=3, max=4)
+	@Pattern(regexp = "[0-9]*")
 	private String user_phone2;
+	
+	@Size(min=3, max=4)
+	@Pattern(regexp = "[0-9]*")
 	private String user_phone3;
 	
 	public Integer getUser_idx() {
@@ -64,6 +84,12 @@ public class UserBean {
 	}
 	public void setUser_pw(String user_pw) {
 		this.user_pw = user_pw;
+	}	
+	public String getUser_pw2() {
+		return user_pw2;
+	}
+	public void setUser_pw2(String user_pw2) {
+		this.user_pw2 = user_pw2;
 	}
 	public String getUser_postcode() {
 		return user_postcode;
@@ -82,12 +108,12 @@ public class UserBean {
 	}
 	public void setUser_address2(String user_address2) {
 		this.user_address2 = user_address2;
+	}	
+	public String getUser_phone1() {
+		return user_phone1;
 	}
-	public String getUser_phoen1() {
-		return user_phoen1;
-	}
-	public void setUser_phoen1(String user_phoen1) {
-		this.user_phoen1 = user_phoen1;
+	public void setUser_phone1(String user_phone1) {
+		this.user_phone1 = user_phone1;
 	}
 	public String getUser_phone2() {
 		return user_phone2;

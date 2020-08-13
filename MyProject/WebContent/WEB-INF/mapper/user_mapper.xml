@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user_mapper">
+	<!-- 아이디 중복확인 -->
+	<select id="checkUserId" parameterType="java.lang.String" resultType="java.lang.String">
+		select user_id from user_table 
+		where user_id= #{new_id}
+	</select>
+	<!-- 회원가입 -->
+	<insert id="addUser" parameterType="com.test.beans.UserBean">
+		insert into user_table 
+		(user_idx, user_ip, user_status, user_date, user_grade, user_name, user_id, user_pw, user_postcode, 
+		user_address1, user_address2, user_phone1, user_phone2, user_phone3)
+		values
+		(user_seq.nextval,#{user_ip}, #{user_status}, sysdate, #{user_grade}, #{user_name}, #{user_id}, #{user_pw}, #{user_postcode}, 
+		#{user_address1}, #{user_address2}, #{user_phone1}, #{user_phone2}, #{user_phone3})
+	</insert>
+	
+</mapper>
