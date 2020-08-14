@@ -33,24 +33,23 @@
 				<div class="card-body">
 					<h1 class="text-center">로그인</h1>
 					<c:url var="path" value="/user/login_pro"></c:url>
-					<form action="${path}" >
+					<form  method="post" action="${path}" >
 						<div class="form-group">
 							<label >아이디</label>
-							<input  class="form-control"/>
+							<input type="text" name="user_id" class="form-control"/>
 							<!-- <form:errors  style="color:red"/>  -->
 						</div>
 						<div class="form-group">
 							<label>비밀번호</label>
-							<password class="form-control"/>
+							<input type="password" name="user_pw" class="form-control"/>
 							
 						</div>
-						<div class="form-group" style="margin:50px 10px 15px 10px">
-							<button class="btn btn-primary" style="width:100%">로그인</button>
-							
+						<div class="form-group" style="margin-top:50px">
+							<button class="btn btn-primary btn-block">로그인</button>							
 						</div>
-						<div class="form-group" style="margin:15px 10px">
+						<div class="form-group" style="margin-top:10px">
 							<c:url var="path" value="/user/join"></c:url>
-							<a href="${path}" class="btn btn-info" style="width:100%">회원가입</a>
+							<a href="${path}" class="btn btn-info btn-block">회원가입</a>
 						</div>
 						
 					</form>

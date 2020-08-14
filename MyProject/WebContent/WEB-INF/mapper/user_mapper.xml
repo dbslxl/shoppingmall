@@ -17,5 +17,29 @@
 		(user_seq.nextval,#{user_ip}, #{user_status}, sysdate, #{user_grade}, #{user_name}, #{user_id}, #{user_pw}, #{user_postcode}, 
 		#{user_address1}, #{user_address2}, #{user_phone1}, #{user_phone2}, #{user_phone3})
 	</insert>
+	<!-- 로그인 -->
+	<select	id="getUserLoginInfo" parameterType="com.test.beans.UserBean" resultType="com.test.beans.UserBean">
+		select user_idx, user_grade, user_name
+		from user_table
+		where user_id = #{user_id} and user_pw = #{user_pw} 
+	</select>
+	<!-- 사용자 정보 가져오기 -->
+	<select id="getUserInfo" parameterType="java.lang.Integer" resultType="com.test.beans.UserBean">
+		select user_name, user_id, user_pw, user_postcode, user_address1, user_address2,
+		 user_phone1, user_phone2, user_phone3,user_grade,user_status
+		from user_table
+		where user_idx = #{user_idx}
+	</select>
+	<!-- 사용자 정보 수정하기 -->
+	<update id="modifyUserInfo" parameterType="com.test.beans.UserBean">
+		update user_table
+		set	user_pw = #{user_pw}, user_postcode = #{user_postcode},
+			user_address1 = #{user_address1},
+			user_address2 = #{user_address2},
+			user_phone1 = #{user_phone1}, user_phone2 = #{user_phone2},
+			user_phone3 = #{user_phone3}
+		where user_idx = #{user_idx}	 
+		
+	</update>
 	
 </mapper>

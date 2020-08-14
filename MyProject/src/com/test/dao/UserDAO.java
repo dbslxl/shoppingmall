@@ -19,4 +19,15 @@ public class UserDAO {
 	public void addUser(UserBean bean) {
 		sql.insert("user_mapper.addUser",bean);
 	}
+	public UserBean getUserLoginInfo(UserBean bean) {
+		UserBean loginUserBean = sql.selectOne("user_mapper.getUserLoginInfo",bean);
+		return loginUserBean;
+	}
+	public UserBean getUserInfo(int user_idx) {
+		UserBean userInfoBean = sql.selectOne("user_mapper.getUserInfo",user_idx);
+		return userInfoBean;
+	}
+	public void modifyUserInfo(UserBean bean) {
+		sql.update("user_mapper.modifyUserInfo",bean);
+	}
 }

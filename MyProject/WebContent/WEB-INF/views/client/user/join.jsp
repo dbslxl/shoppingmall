@@ -231,8 +231,8 @@
 							<p id="user_phone_result" style="color:red"><form:errors path="user_phone3"/> </p>
 						</div>
 						
-						<div class='form-group' style="margin:30px 10px">
-							<form:button class='btn btn-info' style="width:100%;">가입완료</form:button>							
+						<div class='form-group' style="margin-top:30px">
+							<form:button class='btn btn-info btn-block'>가입완료</form:button>							
 						</div>
 						
 					</form:form>

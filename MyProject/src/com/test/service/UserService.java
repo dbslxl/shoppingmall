@@ -14,18 +14,32 @@ public class UserService {
 	
 	public String checkUserId(String newId) {
 		String id = userDao.checkUserId(newId);
-		if(id==null) {
-			System.out.println("ok");
+		if(id==null) {		
 			return "ok";
 			
-		}else {
-			System.out.println(id);
-			return id;
-			
+		}else {			
+			return id;			
 		}
 	}
+	
 	public void addUser(UserBean bean) {
 		userDao.addUser(bean);
+	}
+	
+	public void login(UserBean bean, UserBean loginUserBean) {
+		UserBean tempBean = userDao.getUserLoginInfo(bean);
+		if(tempBean!=null) {
+			loginUserBean.setUser_idx(tempBean.getUser_idx());
+			loginUserBean.setUser_grade(tempBean.getUser_grade());
+			loginUserBean.setUser_name(tempBean.getUser_name());			
+		}
+	}
+	public UserBean getUserInfo(int user_idx) {
+		UserBean userInfoBean = userDao.getUserInfo(user_idx);
+		return userInfoBean;
+	}
+	public void modifyUserInfo(UserBean bean) {		
+		userDao.modifyUserInfo(bean);
 	}
 	
 }

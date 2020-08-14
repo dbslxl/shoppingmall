@@ -43,8 +43,8 @@
 				<div class='card'>
 					<div class='card-body'>
 					
-					<c:url var='path' value='/user/user_modify_pro'/>
-					<form:form action="${path }" modelAttribute="modifyUserBean">
+					<c:url var='path' value='/user/modify_user_info'/>
+					<form:form action="${path }" modelAttribute="userInfoBean">
 						<div class='form-group'>
 							<form:label path="user_name">이름</form:label>
 							<form:input path='user_name' class='form-control' disabled="true"/>
@@ -111,7 +111,7 @@
 						</div>
 						
 						<div class='form-group'>
-							<form:button class='btn btn-primary'>수정완료</form:button>
+							<form:button class='btn btn-info btn-block'>수정완료</form:button>
 							
 						</div>
 					</form:form>

@@ -3,6 +3,7 @@ package com.test.controller;
 import javax.annotation.Resource;
 import javax.annotation.Resources;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import com.test.service.UserService;
 
 @Controller
 public class ClientController {
-	@Resource(name="longinUserBean")
+	@Resource(name="loginUserBean")
 	@Lazy
 	private UserBean loginUserBean;
 	
@@ -56,14 +57,34 @@ public class ClientController {
 		return "client/user/join_pro";
 	}
 	@GetMapping("/user/login")
-	public String user_login(UserBean bean) {
+	public String user_login() {
 		
 		return "client/user/login";
 	}
-	@PostMapping("/user/login")
-	public String user_login_pro() {
-		
-		return "user/login_pro";
+	@PostMapping("/user/login_pro")
+	public String user_login_pro(UserBean bean) {
+		userService.login(bean, loginUserBean);
+		return "client/user/login_pro";
+	}
+	@GetMapping("/user/info")
+	public String user_info(Model model) {
+		UserBean userInfoBean =userService.getUserInfo(loginUserBean.getUser_idx());
+		model.addAttribute("userInfoBean", userInfoBean);
+		return "client/user/info";
+	}
+	@PostMapping("/user/modify_user_info")
+	public String user_modify_info(@Valid @ModelAttribute("userInfoBean") UserBean bean, BindingResult result) {
+		if(result.hasErrors()) {
+			return "client/user/info";
+		}
+		bean.setUser_idx(loginUserBean.getUser_idx());
+		userService.modifyUserInfo(bean);
+		return "client/user/modify_user_info";
+	}
+	@GetMapping("/user/logout")
+	public String user_logout(HttpSession session) {
+		session.invalidate();
+		return "client/user/logout";
 	}
 	
 	@GetMapping("/board/list")

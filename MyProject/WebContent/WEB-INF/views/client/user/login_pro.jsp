@@ -10,9 +10,9 @@
 <c:url var="path2" value="/user/login/"/>
 
 <c:choose>
-	<c:when test="${loginUserBean.user_login_value == true }">
+	<c:when test="${loginUserBean.user_name != null }">
 		<script>
-			alert("로그인 되었습니다.")
+			alert("${loginUserBean.user_name}님 환영합니다.")
 			location.href="${path1}"
 		</script>
 	</c:when>

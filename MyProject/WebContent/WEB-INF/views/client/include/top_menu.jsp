@@ -67,10 +67,16 @@
 		<ul class='navbar-nav ml-auto'>
 			
 			<c:choose>
-				<c:when test="${loginUserBean.user_login_value == true }">
+				<c:when test="${loginUserBean.user_name != null }">
+					<c:if test='${loginUserBean.user_grade == 2 }'>
+					<li class='nav-item'>
+						<c:url var='path' value='/manager/main'/>
+						<a href='${path }' class='nav-link' style="color:rgb(255,75,150)">관리자페이지</a>
+					</li>
+					</c:if>
 					<li class='nav-item'>
 						<c:url var='path' value='/user/info'/>
-						<a href='${path }' class='nav-link'>내 정보</a>
+						<a href='${path }' class='nav-link'>정보수정</a>
 					</li>
 					<li class='nav-item'>
 						<c:url var='path' value='/cart/list'/>
@@ -79,14 +85,7 @@
 					<li class='nav-item'>
 						<c:url var='path' value='/user/buy_history'/>
 						<a href='${path }' class='nav-link'>구매이력</a>
-					</li>
-					
-					<c:if test='${loginUserBean.user_grade == 2 }'>
-					<li class='nav-item'>
-						<c:url var='path' value='/manager/main'/>
-						<a href='${path }' class='nav-link'>관리자페이지</a>
-					</li>
-					</c:if>
+					</li>					
 					
 					<li class='nav-item'>
 						<c:url var='path' value='/user/logout'/>
