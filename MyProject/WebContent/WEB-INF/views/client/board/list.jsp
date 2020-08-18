@@ -32,13 +32,17 @@
 	
 	<div class='container' style='margin-top:100px'>
 		<div class="d-flex justify-content-between">
-		<h2 class="ml-2" style="color:rgb(10,20,100)">[커뮤니티] </h2>
+		<h2 class="ml-2" style="color:rgb(10,20,100)">${boardCategoryBean.board_category_name}</h2>
 		<div>
 			<button class="btn btn-danger">추천순</button>
 			<button class="btn btn-info ml-1">최신순</button>
 		</div>
 		</div>
 		<div style='margin-top:20px; margin-bottom:20px'>
+			
+			minPage:${pageBean.minPage }<br/>
+			maxPage:${pageBean.maxPage }<br/>
+			totalPage:${pageBean.totalPage }
 			
 		</div>
 		
@@ -54,17 +58,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var='obj' begin="1" end="20">
+				<c:forEach var='obj' items="${contentList }">
 				<tr>
-					<td>${obj}</td>
+					<td>${obj.content_idx}</td>
 					<c:url var='path' value='/board/read'>
-						<%-- <c:param name="content_idx" value='${obj.content_idx }'/>
-						<c:param name="board_info_idx" value='${board_info_idx }'/>
-						<c:param name="page" value='${page_bean.currentPage }'></c:param> --%>
+						<c:param name="content_idx" value='${obj.content_idx }'/>
+						<c:param name="board_category_idx" value='${boardCategoryBean.board_category_idx }'/>
+						<c:param name="page" value='${pageBean.currentPage }'/> 
 					</c:url>
 					<td class='text-left'><a class="link" href='${path}'>제목입니다.</a></td>
-					<td>작성자 </td>
-					<td>100</td>
+					<td>${obj.content_writer_id} </td>
+					<td>${obj.content_read_cnt }</td>
 					<td>10</td>
 				</tr>
 				</c:forEach>
@@ -81,7 +85,7 @@
 		<ul class='pagination justify-content-center' style='margin-top:10px'>
 			
 			<c:choose>
-				<c:when test="${1 == 2 }">
+				<c:when test="${pageBean.minPage==1}">
 					<li class='page-item disabled'>
 						<c:url var='path' value='/board/list'/>
 						<a href='${path }' class='page-link'>이전</a>
@@ -90,8 +94,8 @@
 				<c:otherwise>
 					<li class='page-item'>
 						<c:url var='path' value='/board/list'>
-							<%-- <c:param name="board_info_idx" value='${board_info_idx }'/>
-							<c:param name="page" value='${page_bean.minPage - 1 }'/> --%>
+							<c:param name="board_category_idx" value='${boardCategoryBean.board_category_idx }'/>
+							<c:param name="page" value='${pageBean.minPage - 1 }'/> 
 						</c:url>
 						<a href='${path }' class='page-link'>이전</a>
 					</li>
@@ -99,10 +103,13 @@
 			</c:choose>		
 			
 				
-			<c:forEach var='i' begin='1' end='10'>
-			<c:url var='path' value='/board/list'/>			
+			<c:forEach var='i' begin='${pageBean.minPage}' end='${pageBean.maxPage}'>
+			<c:url var='path' value='/board/list'>
+				<c:param name="board_category_idx" value="${boardCategoryBean.board_category_idx}"/>
+				<c:param name="page" value="${i }"/>
+			</c:url>			
 			<c:choose>
-				<c:when test="${page_bean.currentPage == i}">
+				<c:when test="${pageBean.currentPage == i}">
 					<li class='page-item active'>							
 						<a href='${path }' class='page-link'>${i }</a>
 					</li>
@@ -117,7 +124,7 @@
 			</c:forEach>
 			
 			<c:choose>
-				<c:when test="${1==2 }">
+				<c:when test="${pageBean.maxPage>=pageBean.totalPage}">
 					<li class='page-item disabled'>
 						<a href='${path }' class='page-link'>다음</a>
 					</li>
@@ -125,8 +132,8 @@
 				<c:otherwise>
 					<li class='page-item'>
 						<c:url var='path' value='/board/list'>
-							<%-- <c:param name="board_info_idx" value='${board_info_idx }'/>
-							<c:param name="page" value='${page_bean.maxPage + 1 }'/> --%>
+							<c:param name="board_category_idx" value='${boardCategoryBean.board_category_idx }'/>
+							<c:param name="page" value='${pageBean.minPage - 1 }'/> 
 						</c:url>
 						<a href='${path }' class='page-link'>다음</a>
 					</li>

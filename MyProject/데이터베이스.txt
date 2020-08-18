@@ -8,7 +8,7 @@ drop sequence CART_SEQ;
 drop sequence BUY_TEMP_SEQ;
 drop sequence BUY_INFO_SEQ;
 
-drop table product_category_info_table;
+drop table product_category_table;
 drop table board_category_table;
 drop table user_table;
 drop table product_table;
@@ -48,14 +48,12 @@ product_category_status number not null,
 product_category_name varchar2(500) not null	
 );
 
-create table board_info_table(
-board_info_idx number constraint board_category_pk primary key,
-board_info_ip varchar2(50) not null,
-board_info_date date not null,
-board_info_status number not null,
-board_info_name varchar2(500) not null,
-board_info_user_write_chk number not null,
-board_info_manager_replay_chk number not null
+create table board_category_table(
+board_category_idx number not null constraint board_category_pk primary key,
+board_category_name varchar2(100) not null,
+board_category_ip varchar2(50) not null,
+board_category_date date not null,
+board_category_status number not null
 );
 
 create table user_table(
@@ -75,6 +73,45 @@ user_phone2 varchar2(10) not null,
 user_phone3 varchar2(10) not null
 );
 
+
+create table content_table(
+content_idx	number constraint content_pk primary key,
+content_ip	varchar2(50) not null,
+content_status	number not null,
+content_date	date not null,
+content_subject	varchar2(500) not null,
+content_writer_idx	number not null
+					constraint content_fk1
+					references user_table(user_idx),
+content_read_cnt	number not null,
+content_board_category_idx	number not null
+                    constraint content_fk2
+                    references board_category_table(board_category_idx),
+content_text	long not null
+
+);
+
+create table reply_table(
+reply_idx	number constraint reply_pk primary key,
+reply_ip	varchar2(50) not null,
+reply_date	date not null,
+reply_status	number not null,
+reply_text	long not null,
+reply_content_idx	number not null
+                 constraint reply_fk
+                 references content_table(content_idx)
+);
+
+create table like_table(
+like_idx number not null,
+like_ip varchar2(50) not null,
+like_date date not null,
+like_status number not null,
+like_content_idx not null constraint like_fk1 references content_table(content_idx),
+like_user_idx not null constraint like_fk2 references user_table(user_idx),
+constraint like_pk primary key(like_content_idx, like_user_idx)
+); 
+
 create table product_table(
 product_idx	number constraint product_info_pk primary key,
 product_ip	varchar2(50) not null,
@@ -87,23 +124,6 @@ product_detail_image	varchar2(500) not null,
 product_category_idx	number not null
            constraint product_info_fk
            references product_category_table(product_category_idx)
-);
-
-create table content_table(
-content_idx	number constraint content_pk primary key,
-content_ip	varchar2(50) not null,
-content_status	number not null,
-content_date	date not null,
-content_subject	varchar2(500) not null,
-content_writer_idx	number not null
-					constraint content_fk1
-					references user_table(user_idx),
-content_read_cnt	number not null,
-content_board_info_idx	number not null
-                    constraint content_fk2
-                    references board_info_table(board_info_idx),
-content_text	long not null
-
 );
 
 
@@ -155,26 +175,9 @@ new_product_date date,
 new_porduct_product_idx constraint new_product_fk references product_table(product_idx)
 );
 
-create table reply_table(
-reply_idx	number constraint reply_pk primary key,
-reply_ip	varchar2(50) not null,
-reply_date	date not null,
-reply_status	number not null,
-reply_text	long not null,
-reply_content_idx	number not null
-                 constraint reply_fk
-                 references content_table(content_idx)
-);
-
-create table like_table(
-like_idx number not null,
-like_ip varchar2(50) not null,
-like_date date not null,
-like_status number not null,
-like_content_idx not null constraint like_fk1 references content_table(content_idx),
-like_user_idx not null constraint like_fk2 references user_table(user_idx),
-constraint like_pk primary key(like_content_idx, like_user_idx)
-); 
+select content_subject, content_text, content_writer_idx, (select count(*) from like_table where content_idx =a1.content_idx ) as "like"
+from content_table a1
+where a1.CONTENT_BOARD_CATEGORY_NAME='community';
 
 
 

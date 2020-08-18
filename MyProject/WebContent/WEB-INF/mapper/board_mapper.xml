@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board_mapper">
+	<select id="getBoardCategoryInfo" parameterType="java.lang.Integer" resultType="com.test.beans.BoardCategoryBean">
+		select board_category_idx, board_category_name from board_category_table where board_category_idx = #{board_category_idx} 
+	</select>
+	<select id="getContentList" parameterType="java.lang.Integer" resultType="com.test.beans.ContentBean">
+		select a1.content_idx, a1.content_ip, a1.content_status, a1.content_date, a1.content_subject, a1.content_read_cnt, a1.content_text,
+			   a2.user_id as content_writer_id, a2.user_grade as content_writer_grade
+		from content_table a1, user_table a2
+		where content_board_category_idx=#{board_category_idx} and a1.content_status=1 and a1.content_writer_idx=a2.user_idx
+	</select>
+	<select id="getContentCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select count(*) as from content_table 
+		where content_board_category_idx=#{board_category_idx} and content_status=1
+	</select>
+</mapper>

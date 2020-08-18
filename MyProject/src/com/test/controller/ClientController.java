@@ -1,14 +1,14 @@
 package com.test.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
-import javax.annotation.Resources;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +17,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.test.beans.BoardCategoryBean;
+import com.test.beans.ContentBean;
+import com.test.beans.PageBean;
 import com.test.beans.UserBean;
+import com.test.service.BoardService;
 import com.test.service.UserService;
 
 @Controller
@@ -28,6 +32,9 @@ public class ClientController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private BoardService boardService;
 	
 	@GetMapping("/main")
 	public String main() {
@@ -88,7 +95,18 @@ public class ClientController {
 	}
 	
 	@GetMapping("/board/list")
-	public String board_list() {
+	public String board_list(@RequestParam(defaultValue="1") int board_category_idx, @RequestParam (defaultValue="1") int page, Model model) {
+		
+		//get categoryBean
+		BoardCategoryBean boardCategoryBean = boardService.getBoardCategoryInfo(board_category_idx);
+		model.addAttribute("boardCategoryBean", boardCategoryBean);
+		//get contentBean list
+		List<ContentBean> contentList = boardService.getContentList(board_category_idx, page);
+		model.addAttribute("contentList",contentList);
+		//get pageBean
+		PageBean pageBean= boardService.getPageBean(board_category_idx, page);
+		model.addAttribute("pageBean",pageBean);
+		
 		return "client/board/list";
 	}
 	@GetMapping("/board/read")
