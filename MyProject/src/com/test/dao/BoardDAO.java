@@ -28,4 +28,14 @@ public class BoardDAO {
 		int count = sql.selectOne("board_mapper.getContentCount", board_category_idx);
 		return count;
 	}
+	public ContentBean getContent(int content_idx) {
+		ContentBean contentBean = sql.selectOne("board_mapper.getContent",content_idx);
+		return contentBean;
+	}
+	public void incrementReadCnt(int content_idx) {
+		sql.update("board_mapper.incrementReadCnt",content_idx);
+	}
+	public void addContent(ContentBean contentBean) {
+		sql.insert("board_mapper.addContent",contentBean);
+	}
 }

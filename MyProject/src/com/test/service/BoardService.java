@@ -31,4 +31,14 @@ public class BoardService {
 		PageBean pageBean= new PageBean(page, totalCount);
 		return pageBean;
 	}
+	public ContentBean getContent(int content_idx) {
+		ContentBean contentBean = boardDao.getContent(content_idx);
+		return contentBean;
+	}
+	public void incrementReadCnt(int content_idx) {
+		boardDao.incrementReadCnt(content_idx);
+	}
+	public void addContent(ContentBean contentBean) {
+		boardDao.addContent(contentBean);
+	}
 }

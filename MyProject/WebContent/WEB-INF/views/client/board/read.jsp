@@ -16,6 +16,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
 <title>/WEB-INF/views/client/main.jsp</title>
 </head>
@@ -26,22 +27,22 @@
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-10">
-				<h5 class="text-primary">[커뮤니티]</h5>
+				<h5 class="text-primary">${boardCategoryBean.board_category_name }</h5>
 				<hr/>
-				<h2>제목입니다.</h2>
+				<h2>${contentBean.content_subject}</h2>
 				<div style="margin-top:20px "></div>
 				<div class="card">
 					<div class="card-header d-flex justify-content-between"  >
-					<div>작성자ID (192.108.192.204)</div>
-					<div>  2020-08-10 09:20:20</div>
+						<div><span class="mr-3 font-weight-bold">${contentBean.content_writer_id}님</span><span>${contentBean.content_date}</span></div>
+						<div><span class="mr-3">조회&nbsp${contentBean.content_read_cnt}</span>추천&nbsp0</div>
 					</div>
 					<div class="card-body">
 												
 						<div class="form-group" style="min-height:480px">
-							<div>내용 입니다.</div>
+							<div>${contentBean.content_text}</div>
 						</div>
 						<div class="text-center">
-						<button type="button" class="btn btn-info">추&nbsp천&nbsp<span class="badge badge-light">4</span></button>
+						<button type="button" class="btn btn-info">추&nbsp천&nbsp<span class="badge badge-light">${contentBean.content_like_cnt}</span></button>
 						<button class="btn btn-secondary">비추천</button>
 						</div>
 						
@@ -71,21 +72,21 @@
 				
 				<div class="form-group text-right mt-4">
 							<c:url var="path" value="/board/list">
-								<%-- <c:param name="board_info_idx" value="${board_info_idx}"/>
-								<c:param name="page" value="${page}"/> --%>
+								<c:param name="board_category_idx" value="${boardCategoryBean.board_category_idx}"/>
+								<c:param name="page" value="${page}"/>
 							</c:url>
 							<a href="${path}" class="btn btn-info">목록보기</a>
 							
 							<c:url var="path" value="/board/modify">
-								<%-- <c:param name="board_info_idx" value="${board_info_idx}"/>
-								<c:param name="content_idx" value="${content_bean.content_idx}"/>
-								<c:param name="page" value="${page}"></c:param> --%>
+								<c:param name="board_info_idx" value="${boardCategoryBean.board_category_idx}"/>
+								<c:param name="content_idx" value="${contentBean.content_idx}"/>
+								<c:param name="page" value="${page}"></c:param>
 							</c:url>
 							<a href="${path }" class="btn btn-primary">수정하기</a>
 							
 							<c:url var="path" value="/board/delete">
-								<%-- <c:param name="board_info_idx" value="${board_info_idx}"/>
-								<c:param name="content_idx" value="${content_bean.content_idx}"/> --%>
+								<c:param name="board_info_idx" value="${boardCategoryBean.board_category_idx}"/>
+								<c:param name="content_idx" value="${contentBean.content_idx}"/>
 							</c:url>
 							<a href="${path }" class="btn btn-danger">삭제하기</a>
 						</div>

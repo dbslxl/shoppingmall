@@ -6,8 +6,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
  <c:url var="path" value="/board/read">
- 	<c:param name="board_info_idx" value="${board_info_idx}"/>
- 	<c:param name="content_idx" value="${content_idx}"/> 
+ 	<c:param name="board_category_idx" value="${contentBean.content_board_category_idx}"/>
+ 	<c:param name="content_idx" value="${contentBean.content_idx}"/> 
  </c:url>
  
  <script>

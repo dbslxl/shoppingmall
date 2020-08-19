@@ -19,9 +19,9 @@
 
 
 <style>
-	a{
+	.link{
 		color:black;
-		text-decoration:none;
+		
 	}
 	
 </style>
@@ -39,11 +39,7 @@
 		</div>
 		</div>
 		<div style='margin-top:20px; margin-bottom:20px'>
-			
-			minPage:${pageBean.minPage }<br/>
-			maxPage:${pageBean.maxPage }<br/>
-			totalPage:${pageBean.totalPage }
-			
+		
 		</div>
 		
 		
@@ -66,18 +62,21 @@
 						<c:param name="board_category_idx" value='${boardCategoryBean.board_category_idx }'/>
 						<c:param name="page" value='${pageBean.currentPage }'/> 
 					</c:url>
-					<td class='text-left'><a class="link" href='${path}'>제목입니다.</a></td>
+					<td class='text-left'><a class="link" href='${path}'>${obj.content_subject }</a></td>
 					<td>${obj.content_writer_id} </td>
 					<td>${obj.content_read_cnt }</td>
-					<td>10</td>
+					<td>${obj.content_like_cnt }</td>
 				</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		
 		<div class='text-right' style='margin-top:10px' >
-		<c:url var='path' value='/board/write'/>
-		<a href='${path }' class='btn btn-primary'>글쓰기</a>
+		<c:url var='path' value='/board/write'>
+			<c:param name="board_category_idx" value="${boardCategoryBean.board_category_idx }"></c:param>
+		</c:url>
+		<c:if test="${loginUserBean.user_name!=null}"><a href='${path }' class='btn btn-primary'>글쓰기</a></c:if>
+		
 		</div>
 		
 		<%-- pagination --%>
@@ -145,7 +144,16 @@
 	</div>		
 	
 	<div style="margin-top:70px"></div>
-	<c:import url="/WEB-INF/views/client/include/footer.jsp"/>
+	<c:choose>
+		<c:when test="${contentList.size()<=10}">
+		
+			<div class="fixed-bottom"><c:import url="/WEB-INF/views/client/include/footer.jsp"/></div>
+		</c:when>
+		<c:otherwise>
+			<c:import url="/WEB-INF/views/client/include/footer.jsp"/>
+		</c:otherwise>
+	</c:choose>
+	
 	
 </body>
 </html>

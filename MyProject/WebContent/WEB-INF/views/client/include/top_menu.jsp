@@ -50,15 +50,25 @@
 				<a href='#' class='nav-link dropdown-toggle' 
 							data-toggle='dropdown'>Board</a>							
 				<div class='dropdown-menu'>
-					<c:url var='path' value='/board/list'/>
+					<c:url var='path' value='/board/list'>
+						<c:param name="board_category_idx" value="1"/>
+					</c:url>
 					<a href="${path }" class='dropdown-item'>공지사항</a>
+					<c:url var='path' value='/board/list'>
+						<c:param name="board_category_idx" value="2"/>
+					</c:url>
 					<a href="${path }" class='dropdown-item'>FAQ</a>
+					<c:url var='path' value='/board/list'>
+						<c:param name="board_category_idx" value="3"/>
+					</c:url>
 					<a href="${path }" class='dropdown-item'>Q&A</a>			
 				</div>
 			</li>
 			
 			<li class='nav-item'>
-				<c:url var='path' value='/board/list'/>
+				<c:url var='path' value='/board/list'>
+					<c:param name="board_category_idx" value="4"/>
+				</c:url>
 				<a href='${path }' class='nav-link community' style="color:rgb(75,150,255)">Community</a>
 			</li>									
 		</ul>

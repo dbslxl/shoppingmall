@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -110,12 +111,34 @@ public class ClientController {
 		return "client/board/list";
 	}
 	@GetMapping("/board/read")
-	public String borard_read() {
+	public String borard_read(@RequestParam int board_category_idx, @RequestParam (defaultValue="1") int page, 
+							  @RequestParam int content_idx, Model model) {
+		//get categoryBean
+		BoardCategoryBean boardCategoryBean = boardService.getBoardCategoryInfo(board_category_idx);
+		model.addAttribute("boardCategoryBean", boardCategoryBean);
+		//increment read count
+		boardService.incrementReadCnt(content_idx);
+		//get contentBean
+		ContentBean contentBean = boardService.getContent(content_idx);
+		model.addAttribute("contentBean",contentBean);
+		
+		
+		model.addAttribute("page",page);
+		
 		return "client/board/read";
 	}
 	@GetMapping("/board/write")
-	public String board_write(){
+	public String board_write(@RequestParam int board_category_idx,Model model){
+		model.addAttribute("board_category_idx",board_category_idx);
 		return "client/board/write";
+	}
+	@PostMapping("/board/write_pro")
+	public String board_write_pro(@ModelAttribute ContentBean contentBean, HttpServletRequest request) {
+		contentBean.setContent_writer_idx(loginUserBean.getUser_idx());
+		contentBean.setContent_ip(request.getRemoteAddr());
+		boardService.addContent(contentBean);
+		
+		return "client/board/write_pro";
 	}
 	
 	@GetMapping("product/list")

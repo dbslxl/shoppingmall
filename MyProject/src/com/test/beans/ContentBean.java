@@ -6,13 +6,16 @@ public class ContentBean {
 	private int content_status;
 	private String content_date;
 	private String content_subject;
-	private String content_writer_idx;
+	private int content_writer_idx;
 	private int content_read_cnt;
 	private int content_board_category_idx;
 	private String content_text;
 	
 	private String content_writer_id;
 	private String content_writer_grade;
+	
+	private int content_like_cnt;
+	private int content_reply_cnt;
 	
 	public int getContent_idx() {
 		return content_idx;
@@ -43,11 +46,11 @@ public class ContentBean {
 	}
 	public void setContent_subject(String content_subject) {
 		this.content_subject = content_subject;
-	}
-	public String getContent_writer_idx() {
+	}	
+	public int getContent_writer_idx() {
 		return content_writer_idx;
 	}
-	public void setContent_writer_idx(String content_writer_idx) {
+	public void setContent_writer_idx(int content_writer_idx) {
 		this.content_writer_idx = content_writer_idx;
 	}
 	public int getContent_read_cnt() {
@@ -79,6 +82,18 @@ public class ContentBean {
 	}
 	public void setContent_writer_grade(String content_writer_grade) {
 		this.content_writer_grade = content_writer_grade;
+	}
+	public int getContent_like_cnt() {
+		return content_like_cnt;
+	}
+	public void setContent_like_cnt(int content_like_cnt) {
+		this.content_like_cnt = content_like_cnt;
+	}
+	public int getContent_reply_cnt() {
+		return content_reply_cnt;
+	}
+	public void setContent_reply_cnt(int content_reply_cnt) {
+		this.content_reply_cnt = content_reply_cnt;
 	}
 	
 	
