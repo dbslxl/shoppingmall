@@ -34,8 +34,18 @@
 		<div class="d-flex justify-content-between">
 		<h2 class="ml-2" style="color:rgb(10,20,100)">${boardCategoryBean.board_category_name}</h2>
 		<div>
-			<button class="btn btn-danger">추천순</button>
-			<button class="btn btn-info ml-1">최신순</button>
+			<c:url var="path" value="/board/list">
+				<c:param name="list_order" value="like"/>
+				<c:param name="board_category_idx" value="${boardCategoryBean.board_category_idx }"/>
+				<c:param name="page" value="${pageBean.currentPage }"/>
+			</c:url>
+			<a href="${path}" class="btn btn-danger">추천순</a>
+			<c:url var="path" value="/board/list">
+				<c:param name="list_order" value="new"/>
+				<c:param name="board_category_idx" value="${boardCategoryBean.board_category_idx }"/>
+				<c:param name="page" value="${pageBean.currentPage }"/>
+			</c:url>
+			<a href="${path}" class="btn btn-info ml-1">최신순</a>
 		</div>
 		</div>
 		<div style='margin-top:20px; margin-bottom:20px'>

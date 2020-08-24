@@ -12,6 +12,15 @@
 			   (select count(*) from like_table where like_content_idx=a1.content_idx) as content_like_cnt
 		from content_table a1, user_table a2
 		where content_board_category_idx=#{board_category_idx} and a1.content_status=1 and a1.content_writer_idx=a2.user_idx
+		order by content_idx desc
+	</select>
+	<select id="getContentListLike" parameterType="java.lang.Integer" resultType="com.test.beans.ContentBean">
+		select a1.content_idx, a1.content_ip, a1.content_status, a1.content_date, a1.content_subject, a1.content_read_cnt, a1.content_text,
+			   a2.user_id as content_writer_id, a2.user_grade as content_writer_grade, 
+			   (select count(*) from like_table where like_content_idx=a1.content_idx) as content_like_cnt
+		from content_table a1, user_table a2
+		where content_board_category_idx=#{board_category_idx} and a1.content_status=1 and a1.content_writer_idx=a2.user_idx
+		order by content_like_cnt desc
 	</select>
 	<select id="getContentCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
 		select count(*) as from content_table 
@@ -40,4 +49,26 @@
 		values(#{content_idx}, #{content_ip}, 1, sysdate, #{content_subject}, #{content_writer_idx},
 				0, #{content_board_category_idx}, #{content_text})
 	</insert>
+	<select id="checkLike" parameterType="com.test.beans.LikeBean" resultType="com.test.beans.LikeBean">
+		select * from like_table where like_user_idx=#{like_user_idx} and like_content_idx=#{like_content_idx}
+	</select>
+	<insert id="addLike" parameterType="com.test.beans.LikeBean">
+		insert into like_table (LIKE_IDX,LIKE_IP,LIKE_DATE,LIKE_STATUS,LIKE_CONTENT_IDX,LIKE_USER_IDX)
+		values(like_seq.nextval,#{like_ip}, sysdate, 1, #{like_content_idx},#{like_user_idx})
+	</insert>
+	<delete id="removeLike" parameterType="com.test.beans.LikeBean">
+		delete from like_table where like_content_idx=#{like_content_idx} and like_user_idx=#{like_user_idx}
+	</delete>
+	<select id="getCommentList" parameterType="java.lang.Integer" resultType="com.test.beans.CommentBean">
+		select * from comment_table where comment_content_idx = #{content_idx}
+	</select>
+	<insert id="addComment" parameterType="com.test.beans.CommentBean">
+		insert into comment_table (COMMENT_IDX,COMMENT_IP,COMMENT_DATE,COMMENT_STATUS,COMMENT_TEXT,COMMENT_CONTENT_IDX,COMMENT_USER_IDX)
+		values(comment_seq.nextval,'0.0.0.0',sysdate,1,#{comment_text},#{comment_content_idx},#{comment_user_idx})
+	</insert>	
+	<delete id="removeComment">
+		delete from comment_table 
+	</delete>
+	
+	
 </mapper>

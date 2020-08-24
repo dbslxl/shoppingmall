@@ -13,13 +13,51 @@
 <meta name='viewport' content='width=device-width; initial-scale=1'/>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
 <title>/WEB-INF/views/client/main.jsp</title>
+<script>	
+	function like_button(){
+		<c:url var='path' value="/board/like_pro"/>
+		var data = {			
+			like_user_idx: ${loginUserBean.user_idx},
+		    like_content_idx: ${contentBean.content_idx}
+		}
+		$.ajax({
+			url:"${path}",
+			type : "post",
+			dataType : "text",
+			data : data,
+			success : function(result){
+				if(result.trim()=="up"){
+					document.getElementById("like-badge").innerHTML=parseInt(document.getElementById("like-badge").innerHTML)+1
+				}else{
+					document.getElementById("like-badge").innerHTML=parseInt(document.getElementById("like-badge").innerHTML)-1
+				}
+			}
+		})
+	}
+
+</script>
+<!-- <script>	
+	function like_button(){
+		<c:url var='path' value="/board/like_pro"/>
+		
+		$.post("${path}",{			
+			like_user_idx: ${loginUserBean.user_idx},
+		    like_content_idx: ${contentBean.content_idx}
+		},function(result){
+				alert(result)
+			}
+		)
+	} -->
+
+</script>
 </head>
+
 <body>
 	<c:import url="/WEB-INF/views/client/include/top_menu.jsp"/>
 	
@@ -42,7 +80,7 @@
 							<div>${contentBean.content_text}</div>
 						</div>
 						<div class="text-center">
-						<button type="button" class="btn btn-info">추&nbsp천&nbsp<span class="badge badge-light">${contentBean.content_like_cnt}</span></button>
+						<button type="button" id="like-button" onclick="like_button()" class="btn btn-info">추&nbsp천&nbsp<span id="like-badge" class="badge badge-light">${contentBean.content_like_cnt}</span></button>
 						<button class="btn btn-secondary">비추천</button>
 						</div>
 						
@@ -50,20 +88,27 @@
 							<h5 >전체 댓글 3개</h5>	
 							<hr/>	
 							<div class="form-group">
-								<div>여기는 관리자 답변이 나오는 부분입니다.</div>
-								<hr/>
-								<div>여기는 관리자 답변이 나오는 부분입니다.</div>
-								<hr/>
-								<div>여기는 관리자 답변이 나오는 부분입니다.</div>
+								<div><span> </span></div>
+								<c:forEach var="obj" items="${commentList}">									
+									<div><span class="mr-3 font-weight-bold">${obj.comment_user_idx}</span>${obj.comment_text}</div>
+									<hr/>
+								</c:forEach>								
 							</div>
 						</div>
 						
 					</div>	
 					<div class="card-footer">
-						<div class="form-group">
-						<textarea class="form-control" rows="5" cols="100"></textarea>
-						<div class="text-right mt-1"><button class="btn btn-primary">등록하기</button></div>
-						</div>	
+						<c:url var="path" value="/board/add_comment"/>
+						<form action="${path}" method="post">						
+							<div class="form-group">
+							<input type="hidden" name="board_category_idx" value="${boardCategoryBean.board_category_idx}">
+							<input type="hidden" name="content_idx" value="${contentBean.content_idx}">
+							<input type="hidden" name="page" value="${page}">
+							<textarea name="comment_text" class="form-control" rows="5" cols="100"></textarea>
+							<div class="text-right mt-1"><button class="btn btn-primary">등록하기</button></div>
+							</div>	
+						</form>
+						
 					</div>				
 				</div>
 				
@@ -98,4 +143,6 @@
 	<div style="margin:50px"></div>
 	<c:import url="/WEB-INF/views/client/include/footer.jsp"/>
 </body>
+
+
 </html>

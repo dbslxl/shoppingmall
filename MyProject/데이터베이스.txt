@@ -13,7 +13,7 @@ drop table board_category_table;
 drop table user_table;
 drop table product_table;
 drop table content_table;
-drop table reply_table;
+drop table coment_table;
 drop table like_table;
 drop table best_product_table;
 drop table new_product_table;
@@ -30,7 +30,7 @@ create sequence USER_SEQ;
 create sequence PRODUCT_SEQ;
 create sequence CONTENT_SEQ;
 
-create sequence REPLY_SEQ;
+create sequence COMMENT_SEQ;
 create sequence LIKE_SEQ;
 
 create sequence BEST_PRODUCT_SEQ;
@@ -91,15 +91,18 @@ content_text	long not null
 
 );
 
-create table reply_table(
-reply_idx	number constraint reply_pk primary key,
-reply_ip	varchar2(50) not null,
-reply_date	date not null,
-reply_status	number not null,
-reply_text	long not null,
-reply_content_idx	number not null
-                 constraint reply_fk
-                 references content_table(content_idx)
+create table comment_table(
+comment_idx	number constraint reply_pk primary key,
+comment_ip	varchar2(50) not null,
+comment_date	date not null,
+comment_status	number not null,
+comment_text	long not null,
+comment_content_idx	number not null
+                 constraint comment_fk
+                 references content_table(content_idx),
+comment_user_idx number not null
+				constraint comment_fk2
+				references user_table(user_idx)
 );
 
 create table like_table(

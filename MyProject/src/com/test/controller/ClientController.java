@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.test.beans.BoardCategoryBean;
+import com.test.beans.CommentBean;
 import com.test.beans.ContentBean;
+import com.test.beans.LikeBean;
 import com.test.beans.PageBean;
 import com.test.beans.UserBean;
 import com.test.service.BoardService;
@@ -96,13 +98,20 @@ public class ClientController {
 	}
 	
 	@GetMapping("/board/list")
-	public String board_list(@RequestParam(defaultValue="1") int board_category_idx, @RequestParam (defaultValue="1") int page, Model model) {
+	public String board_list(@RequestParam(defaultValue="1") int board_category_idx, @RequestParam (defaultValue="1") int page, 
+							 @RequestParam(defaultValue="new") String list_order ,Model model) {
 		
 		//get categoryBean
 		BoardCategoryBean boardCategoryBean = boardService.getBoardCategoryInfo(board_category_idx);
 		model.addAttribute("boardCategoryBean", boardCategoryBean);
 		//get contentBean list
-		List<ContentBean> contentList = boardService.getContentList(board_category_idx, page);
+		List<ContentBean> contentList;
+		System.out.println(list_order);
+		if(list_order.equals("like")) {
+			contentList= boardService.getContentListLike(board_category_idx, page);			
+		}else {
+			contentList = boardService.getContentList(board_category_idx, page);
+		}				
 		model.addAttribute("contentList",contentList);
 		//get pageBean
 		PageBean pageBean= boardService.getPageBean(board_category_idx, page);
@@ -121,7 +130,9 @@ public class ClientController {
 		//get contentBean
 		ContentBean contentBean = boardService.getContent(content_idx);
 		model.addAttribute("contentBean",contentBean);
-		
+		//get comment list
+		List<CommentBean> commentList = boardService.getCommentList(content_idx);
+		model.addAttribute("commentList", commentList);		
 		
 		model.addAttribute("page",page);
 		
@@ -139,6 +150,44 @@ public class ClientController {
 		boardService.addContent(contentBean);
 		
 		return "client/board/write_pro";
+	}
+	@PostMapping("/board/like_pro")
+	public String board_like_pro(LikeBean likeBean, HttpServletRequest request,Model model) {
+		String result;
+		//checkLike
+		LikeBean bean = boardService.checkLike(likeBean);				
+		//update table
+		if(bean==null) {
+			likeBean.setLike_ip(request.getRemoteAddr());
+			boardService.addLike(likeBean);
+			result="up";
+		}else {
+			boardService.removeLike(likeBean);
+			result="down";
+		}
+		model.addAttribute("result", result);		
+		return "client/board/like_pro";				
+	}
+	@PostMapping("/board/add_comment")
+	public String board_add_comment(CommentBean commentBean, HttpServletRequest request, @RequestParam int board_category_idx,
+									@RequestParam (defaultValue="1") int page, @RequestParam int content_idx, Model model){
+		commentBean.setComment_content_idx(content_idx);
+		commentBean.setComment_ip(request.getRemoteAddr());
+		commentBean.setComment_user_idx(loginUserBean.getUser_idx());
+		boardService.addComment(commentBean);
+		
+		BoardCategoryBean boardCategoryBean = boardService.getBoardCategoryInfo(board_category_idx);
+		model.addAttribute("boardCategoryBean", boardCategoryBean);
+		//get contentBean
+		ContentBean contentBean = boardService.getContent(content_idx);
+		model.addAttribute("contentBean",contentBean);
+		//get comment list
+		List<CommentBean> commentList = boardService.getCommentList(content_idx);
+		model.addAttribute("commentList", commentList);		
+		System.out.println("size is = "+commentList.size());
+		model.addAttribute("page",page);
+		
+		return "client/board/read";
 	}
 	
 	@GetMapping("product/list")
