@@ -9,7 +9,8 @@
 	<select id="getContentList" parameterType="java.lang.Integer" resultType="com.test.beans.ContentBean">
 		select a1.content_idx, a1.content_ip, a1.content_status, a1.content_date, a1.content_subject, a1.content_read_cnt, a1.content_text,
 			   a2.user_id as content_writer_id, a2.user_grade as content_writer_grade, 
-			   (select count(*) from like_table where like_content_idx=a1.content_idx) as content_like_cnt
+			   (select count(*) from like_table where like_content_idx=a1.content_idx) as content_like_cnt,
+			   (select count(*) from comment_table where comment_content_idx=a1.content_idx) as content_comment_cnt
 		from content_table a1, user_table a2
 		where content_board_category_idx=#{board_category_idx} and a1.content_status=1 and a1.content_writer_idx=a2.user_idx
 		order by content_idx desc
@@ -17,7 +18,8 @@
 	<select id="getContentListLike" parameterType="java.lang.Integer" resultType="com.test.beans.ContentBean">
 		select a1.content_idx, a1.content_ip, a1.content_status, a1.content_date, a1.content_subject, a1.content_read_cnt, a1.content_text,
 			   a2.user_id as content_writer_id, a2.user_grade as content_writer_grade, 
-			   (select count(*) from like_table where like_content_idx=a1.content_idx) as content_like_cnt
+			   (select count(*) from like_table where like_content_idx=a1.content_idx) as content_like_cnt,
+			   (select count(*) from comment_table where comment_content_idx=a1.content_idx) as content_comment_cnt
 		from content_table a1, user_table a2
 		where content_board_category_idx=#{board_category_idx} and a1.content_status=1 and a1.content_writer_idx=a2.user_idx
 		order by content_like_cnt desc
@@ -31,7 +33,8 @@
 			   a1.content_writer_idx, a1.content_read_cnt,
 			   a1.content_board_category_idx, a1.content_text,
 			   a2.user_id as content_writer_id,
-			   (select count(*) from like_table where like_content_idx=a1.content_idx) as content_like_cnt
+			   (select count(*) from like_table where like_content_idx=a1.content_idx) as content_like_cnt,
+			   (select count(*) from comment_table where comment_content_idx=a1.content_idx)as content_comment_cnt
 	 	from content_table a1, user_table a2
 	 	where content_idx = #{content_idx} and a1.content_writer_idx=a2.user_idx
 	</select>
@@ -60,8 +63,11 @@
 		delete from like_table where like_content_idx=#{like_content_idx} and like_user_idx=#{like_user_idx}
 	</delete>
 	<select id="getCommentList" parameterType="java.lang.Integer" resultType="com.test.beans.CommentBean">
-		select * from comment_table where comment_content_idx = #{content_idx}
-	</select>
+		select a1.comment_idx, a1.comment_ip, a1.comment_date, a1.comment_status, 
+		a1.comment_text, a1.comment_content_idx, a1.comment_user_idx, a2.user_id as comment_user_id
+		from comment_table a1, user_table a2
+		where comment_content_idx = #{content_idx} and a1.comment_user_idx=a2.user_idx
+	</select>	
 	<insert id="addComment" parameterType="com.test.beans.CommentBean">
 		insert into comment_table (COMMENT_IDX,COMMENT_IP,COMMENT_DATE,COMMENT_STATUS,COMMENT_TEXT,COMMENT_CONTENT_IDX,COMMENT_USER_IDX)
 		values(comment_seq.nextval,'0.0.0.0',sysdate,1,#{comment_text},#{comment_content_idx},#{comment_user_idx})

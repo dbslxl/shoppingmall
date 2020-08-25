@@ -17,14 +17,19 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-
+	
+		
 <title>/WEB-INF/views/client/main.jsp</title>
 <script>	
 	function like_button(){
+		/* if(${loginUserBean.user_name==null}){
+			alert("로그인 해주세요")
+			return;
+		} */
 		<c:url var='path' value="/board/like_pro"/>
 		var data = {			
 			like_user_idx: ${loginUserBean.user_idx},
-		    like_content_idx: ${contentBean.content_idx}
+		    like_content_idx: ${contentBean.content_idx},		    
 		}
 		$.ajax({
 			url:"${path}",
@@ -40,24 +45,43 @@
 			}
 		})
 	}
+	
+	
+	/* function check_login(){
+		<c:choose>
+			<c:when test='${loginUserBean.user_name == null}'> 
+				alert("로그인 해주세요")
+				return false;
+			</c:when>
+			<c:otherwise>
+				return true;
+			</c:otherwise>
+		</c:choose>	
+	}  */
 
 </script>
-<!-- <script>	
-	function like_button(){
-		<c:url var='path' value="/board/like_pro"/>
-		
-		$.post("${path}",{			
-			like_user_idx: ${loginUserBean.user_idx},
-		    like_content_idx: ${contentBean.content_idx}
-		},function(result){
-				alert(result)
-			}
-		)
-	} -->
-
+<script>
+	/* function check_login(){
+		<c:choose>
+		<c:when test='${loginUserBean.user_name == null}'> 
+			alert("로그인 해주세요")
+			return false;
+		</c:when>
+		<c:otherwise>
+			return true;
+		</c:otherwise>
+	</c:choose>	
+	} */
+	function check_login(){
+		if(${loginUserBean.user_name==null}){
+			alert("로그인 해주세요")
+			return false;
+		}else{
+			return true;
+		}
+	}
 </script>
 </head>
-
 <body>
 	<c:import url="/WEB-INF/views/client/include/top_menu.jsp"/>
 	
@@ -72,7 +96,7 @@
 				<div class="card">
 					<div class="card-header d-flex justify-content-between"  >
 						<div><span class="mr-3 font-weight-bold">${contentBean.content_writer_id}님</span><span>${contentBean.content_date}</span></div>
-						<div><span class="mr-3">조회&nbsp${contentBean.content_read_cnt}</span>추천&nbsp0</div>
+						<div><span class="mr-3">조회&nbsp${contentBean.content_read_cnt}</span>추천&nbsp${contentBean.content_like_cnt}</div>
 					</div>
 					<div class="card-body">
 												
@@ -85,13 +109,17 @@
 						</div>
 						
 						<div style="margin-top:30px">
-							<h5 >전체 댓글 3개</h5>	
-							<hr/>	
-							<div class="form-group">
-								<div><span> </span></div>
+							<h5 >전체 댓글 ${contentBean.content_comment_cnt}개</h5>							
+							<div class="mt-3">								
 								<c:forEach var="obj" items="${commentList}">									
-									<div><span class="mr-3 font-weight-bold">${obj.comment_user_idx}</span>${obj.comment_text}</div>
-									<hr/>
+									<table class="table">									
+										<tbody>
+											<td style='width:15%' class=" font-weight-bold" >${obj.comment_user_id}</td>
+											<td style="width:50%" class="">${obj.comment_text}</td>
+											<td style="width:20%" class="">${obj.comment_date}</td>
+											<td style="width:2%"><a class="text-danger" href="#">x</a></td>
+										</tbody>										
+									</table>									
 								</c:forEach>								
 							</div>
 						</div>
@@ -99,7 +127,7 @@
 					</div>	
 					<div class="card-footer">
 						<c:url var="path" value="/board/add_comment"/>
-						<form action="${path}" method="post">						
+						<form action="${path}" method="post" onsubmit="return check_login()">						
 							<div class="form-group">
 							<input type="hidden" name="board_category_idx" value="${boardCategoryBean.board_category_idx}">
 							<input type="hidden" name="content_idx" value="${contentBean.content_idx}">

@@ -72,7 +72,7 @@
 						<c:param name="board_category_idx" value='${boardCategoryBean.board_category_idx }'/>
 						<c:param name="page" value='${pageBean.currentPage }'/> 
 					</c:url>
-					<td class='text-left'><a class="link" href='${path}'>${obj.content_subject }</a></td>
+					<td class='text-left'><a class="link" href='${path}'>${obj.content_subject }&nbsp<span class="text-info">[${obj.content_comment_cnt}]</span></a></td>
 					<td>${obj.content_writer_id} </td>
 					<td>${obj.content_read_cnt }</td>
 					<td>${obj.content_like_cnt }</td>

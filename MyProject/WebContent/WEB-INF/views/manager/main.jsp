@@ -39,9 +39,10 @@
 				<div class="card" >
 					<div class="card-header"><h3>게시판 관리</h3></div>
 					<div class="card-body">
-						<div><a href="#">회원 목록</a></div>
-						<div><a href="#">회원 목록</a></div>
-						<div><a href="#">회원 목록</a></div>
+						<div><a href="#">공지사항 관리</a></div>
+						<div><a href="#">FAQ 관리</a></div>
+						<div><a href="#">QnA 관리</a></div>
+						<div><a href="#">커뮤니티 관리</a></div>
 					</div>
 				</div>	
 			</div>
@@ -49,9 +50,10 @@
 				<div class="card" >
 					<div class="card-header"><h3>상품 관리</h3></div>
 					<div class="card-body">
-						<div><a href="#">회원 목록</a></div>
-						<div><a href="#">회원 목록</a></div>
-						<div><a href="#">회원 목록</a></div>
+						<div><a href="#">상품 등록</a></div>
+						<div><a href="#">인기 상품 등록</a></div>	
+						<div><a href="#">신상품 등록</a></div>
+						<div><a href="#">구매상품 관리</a></div>								
 					</div>
 				</div>	
 			</div>

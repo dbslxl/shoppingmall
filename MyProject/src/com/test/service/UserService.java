@@ -31,7 +31,8 @@ public class UserService {
 		if(tempBean!=null) {
 			loginUserBean.setUser_idx(tempBean.getUser_idx());
 			loginUserBean.setUser_grade(tempBean.getUser_grade());
-			loginUserBean.setUser_name(tempBean.getUser_name());			
+			loginUserBean.setUser_name(tempBean.getUser_name());
+			loginUserBean.setUser_id(tempBean.getUser_id());
 		}
 	}
 	public UserBean getUserInfo(int user_idx) {

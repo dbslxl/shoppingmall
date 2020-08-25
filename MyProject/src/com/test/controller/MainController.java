@@ -13,5 +13,9 @@ public class MainController {
 		System.out.println("index");
 		return "redirect:/main";
 	}
+	@GetMapping("/not_login")
+	public String not_login() {
+		return "not_login";
+	}
 	
 }
