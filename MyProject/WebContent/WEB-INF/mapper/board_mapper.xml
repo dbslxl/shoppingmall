@@ -72,8 +72,11 @@
 		insert into comment_table (COMMENT_IDX,COMMENT_IP,COMMENT_DATE,COMMENT_STATUS,COMMENT_TEXT,COMMENT_CONTENT_IDX,COMMENT_USER_IDX)
 		values(comment_seq.nextval,'0.0.0.0',sysdate,1,#{comment_text},#{comment_content_idx},#{comment_user_idx})
 	</insert>	
-	<delete id="removeComment">
-		delete from comment_table 
+	<select id="checkRemoveComment" parameterType="com.test.beans.CommentBean" resultType="com.test.beans.CommentBean">
+		select * from comment_table where comment_idx=#{comment_idx} and comment_user_idx=#{comment_user_idx}
+	</select>
+	<delete id="removeComment" parameterType="com.test.beans.CommentBean">		
+		delete from comment_table where comment_idx=#{comment_idx} and comment_user_idx=#{comment_user_idx}
 	</delete>
 	
 	

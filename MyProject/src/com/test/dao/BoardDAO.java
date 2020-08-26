@@ -62,4 +62,11 @@ public class BoardDAO {
 	public void addComment(CommentBean commentBean) {
 		sql.insert("board_mapper.addComment",commentBean);
 	}
+	public CommentBean checkRemoveComment(CommentBean commentBean) {
+		CommentBean bean = sql.selectOne("board_mapper.checkRemoveComment",commentBean);
+		return bean;
+	}
+	public void deleteComment(CommentBean commentBean) {
+		sql.delete("board_mapper.removeComment",commentBean);
+	}
 }

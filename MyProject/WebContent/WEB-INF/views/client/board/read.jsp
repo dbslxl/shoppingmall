@@ -20,30 +20,36 @@
 	
 		
 <title>/WEB-INF/views/client/main.jsp</title>
-<script>	
+
+<script>
+
 	function like_button(){
-		/* if(${loginUserBean.user_name==null}){
+		<c:choose>
+		<c:when test="${loginUserBean.user_name==null }">
 			alert("로그인 해주세요")
 			return;
-		} */
-		<c:url var='path' value="/board/like_pro"/>
-		var data = {			
-			like_user_idx: ${loginUserBean.user_idx},
-		    like_content_idx: ${contentBean.content_idx},		    
-		}
-		$.ajax({
-			url:"${path}",
-			type : "post",
-			dataType : "text",
-			data : data,
-			success : function(result){
-				if(result.trim()=="up"){
-					document.getElementById("like-badge").innerHTML=parseInt(document.getElementById("like-badge").innerHTML)+1
-				}else{
-					document.getElementById("like-badge").innerHTML=parseInt(document.getElementById("like-badge").innerHTML)-1
-				}
+		</c:when>
+		<c:otherwise>
+			<c:url var='path' value="/board/like_pro"/>
+			var data = {			
+				like_user_idx: ${loginUserBean.user_idx},
+			    like_content_idx: ${contentBean.content_idx},		    
 			}
-		})
+			$.ajax({
+				url:"${path}",
+				type : "post",
+				dataType : "text",
+				data : data,
+				success : function(result){
+					if(result.trim()=="up"){
+						document.getElementById("like-badge").innerHTML=parseInt(document.getElementById("like-badge").innerHTML)+1
+					}else{
+						document.getElementById("like-badge").innerHTML=parseInt(document.getElementById("like-badge").innerHTML)-1
+					}
+				}
+			})
+		</c:otherwise>
+		</c:choose>
 	}
 	
 	
@@ -60,18 +66,7 @@
 	}  */
 
 </script>
-<script>
-	/* function check_login(){
-		<c:choose>
-		<c:when test='${loginUserBean.user_name == null}'> 
-			alert("로그인 해주세요")
-			return false;
-		</c:when>
-		<c:otherwise>
-			return true;
-		</c:otherwise>
-	</c:choose>	
-	} */
+<script>	
 	function check_login(){
 		if(${loginUserBean.user_name==null}){
 			alert("로그인 해주세요")
@@ -81,6 +76,11 @@
 		}
 	}
 </script>
+<c:choose>
+	<c:when test="${message!=null}">
+		<script>alert("${message}")</script>
+	</c:when>
+</c:choose>
 </head>
 <body>
 	<c:import url="/WEB-INF/views/client/include/top_menu.jsp"/>
@@ -117,7 +117,17 @@
 											<td style='width:15%' class=" font-weight-bold" >${obj.comment_user_id}</td>
 											<td style="width:50%" class="">${obj.comment_text}</td>
 											<td style="width:20%" class="">${obj.comment_date}</td>
-											<td style="width:2%"><a class="text-danger" href="#">x</a></td>
+											<c:url var="path" value="/board/delete_comment">
+												<c:param name="comment_idx" value="${obj.comment_idx }"/>
+												<c:param name="comment_user_idx" value="${loginUserBean.user_idx}"/>
+												<c:param name="board_category_idx" value="${boardCategoryBean.board_category_idx}"/>
+												<c:param name="content_idx" value="${contentBean.content_idx}"/>
+												<c:param name="page" value="${page}"/>												
+											</c:url>
+											<c:if test="${loginUserBean.user_name!=null}">
+												<td style="width:2%"><a class="text-danger" href="${path }">x</a></td>
+											</c:if>
+											
 										</tbody>										
 									</table>									
 								</c:forEach>								

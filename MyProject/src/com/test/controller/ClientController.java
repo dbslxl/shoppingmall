@@ -176,6 +176,7 @@ public class ClientController {
 		commentBean.setComment_user_idx(loginUserBean.getUser_idx());
 		boardService.addComment(commentBean);
 		
+		//get boardCategoryBean
 		BoardCategoryBean boardCategoryBean = boardService.getBoardCategoryInfo(board_category_idx);
 		model.addAttribute("boardCategoryBean", boardCategoryBean);
 		//get contentBean
@@ -184,8 +185,34 @@ public class ClientController {
 		//get comment list
 		List<CommentBean> commentList = boardService.getCommentList(content_idx);
 		model.addAttribute("commentList", commentList);		
-		System.out.println("size is = "+commentList.size());
+		
 		model.addAttribute("page",page);
+		
+		return "client/board/read";
+	}
+	@GetMapping("/board/delete_comment")
+	public String board_delete_comment(CommentBean commentBean, @RequestParam int board_category_idx,
+			@RequestParam (defaultValue="1") int page, @RequestParam int content_idx, Model model ) {
+		
+		String message;
+		CommentBean bean = boardService.checkRemoveComment(commentBean);
+		if(bean==null) {
+			message="댓글 작성자만 삭제할수 있습니다.";			
+		}else {
+			boardService.removeComment(commentBean);
+			message="삭제되었습니다.";
+		}
+		model.addAttribute("message",message);
+		
+		//get boardCategoryBean
+		BoardCategoryBean boardCategoryBean = boardService.getBoardCategoryInfo(board_category_idx);
+		model.addAttribute("boardCategoryBean", boardCategoryBean);
+		//get contentBean
+		ContentBean contentBean = boardService.getContent(content_idx);
+		model.addAttribute("contentBean",contentBean);
+		//get comment list
+		List<CommentBean> commentList = boardService.getCommentList(content_idx);
+		model.addAttribute("commentList", commentList);	
 		
 		return "client/board/read";
 	}

@@ -29,9 +29,8 @@
 				<div class="card" >
 					<div class="card-header"><h3>회원 관리</h3></div>
 					<div class="card-body">
-						<div><a href="#">회원 목록</a></div>
-						<div><a href="#">회원 목록</a></div>
-						<div><a href="#">회원 목록</a></div>
+						<div><a href="#">회원  관리</a></div>
+						<div><a href="#">관리자 관리</a></div>						
 					</div>
 				</div>	
 			</div>

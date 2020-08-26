@@ -92,7 +92,7 @@ content_text	long not null
 );
 
 create table comment_table(
-comment_idx	number constraint reply_pk primary key,
+comment_idx	number constraint comment_pk primary key,
 comment_ip	varchar2(50) not null,
 comment_date	date not null,
 comment_status	number not null,
@@ -113,7 +113,17 @@ like_status number not null,
 like_content_idx not null constraint like_fk1 references content_table(content_idx),
 like_user_idx not null constraint like_fk2 references user_table(user_idx),
 constraint like_pk primary key(like_content_idx, like_user_idx)
-); 
+);
+create table dislike_table(
+dislike_idx number not null,
+dislike_ip varchar2(50) not null,
+dislike_date date not null,
+dislike_status number not null,
+dislike_content_idx not null constraint like_fk1 references content_table(content_idx),
+dislike_user_idx not null constraint like_fk2 references user_table(user_idx),
+constraint dislike_pk primary key(dislike_content_idx, dislike_user_idx)
+);  
+
 
 create table product_table(
 product_idx	number constraint product_info_pk primary key,

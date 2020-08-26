@@ -66,4 +66,11 @@ public class BoardService {
 	public void addComment(CommentBean commentBean) {
 		boardDao.addComment(commentBean);
 	}
+	public CommentBean checkRemoveComment(CommentBean commentBean) {
+		CommentBean bean = boardDao.checkRemoveComment(commentBean);
+		return bean;
+	}
+	public void removeComment(CommentBean commentBean) {
+		boardDao.deleteComment(commentBean);
+	}
 }
