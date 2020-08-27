@@ -23,8 +23,10 @@ import com.test.beans.CommentBean;
 import com.test.beans.ContentBean;
 import com.test.beans.LikeBean;
 import com.test.beans.PageBean;
+import com.test.beans.ProductBean;
 import com.test.beans.UserBean;
 import com.test.service.BoardService;
+import com.test.service.ProductService;
 import com.test.service.UserService;
 
 @Controller
@@ -34,10 +36,11 @@ public class ClientController {
 	private UserBean loginUserBean;
 	
 	@Autowired
-	private UserService userService;
-	
+	private UserService userService;	
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private ProductService productService;
 	
 	@GetMapping("/main")
 	public String main() {
@@ -218,8 +221,16 @@ public class ClientController {
 	}
 	
 	@GetMapping("product/list")
-	public String product_list() {
+	public String product_list(ProductBean categoryInfo, HttpServletRequest request, Model model) {
+		
+		if(request.getParameter("product_category2_idx")!=null) {
+			categoryInfo.setProduct_category2_idx(Integer.parseInt(request.getParameter("product_category2_idx")));
+		}		
+		List<ProductBean> list = productService.getProductList(categoryInfo);
+		model.addAttribute("productList", list);
+		
 		return "client/product/list";
+		
 	}
 	@GetMapping("product/detail")
 	public String product_detail() {

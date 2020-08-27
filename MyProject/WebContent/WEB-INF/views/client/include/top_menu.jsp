@@ -34,15 +34,15 @@
 		<%-- 좌측 메뉴 --%>
 		<ul class='navbar-nav'>
 			<li class='nav-item'>
-				<c:url var='path' value='/product/list'/>
+				<c:url var='path' value='/product/list?product_category1_idx=1'/>
 				<a href='${path }' class='nav-link'>Men</a>
 			</li>
 			<li class='nav-item'>
-				<c:url var='path' value='/product/list'/>
+				<c:url var='path' value='/product/list?product_category1_idx=2'/>
 				<a href='${path }' class='nav-link'>Women</a>
 			</li>
 			<li class='nav-item'>
-				<c:url var='path' value='/product/list'/>
+				<c:url var='path' value='/product/list?product_category1_idx=3'/>
 				<a href='${path }' class='nav-link'>Kids</a>
 			</li>
 			

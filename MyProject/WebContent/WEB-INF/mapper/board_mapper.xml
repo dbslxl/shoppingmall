@@ -66,7 +66,7 @@
 		select a1.comment_idx, a1.comment_ip, a1.comment_date, a1.comment_status, 
 		a1.comment_text, a1.comment_content_idx, a1.comment_user_idx, a2.user_id as comment_user_id
 		from comment_table a1, user_table a2
-		where comment_content_idx = #{content_idx} and a1.comment_user_idx=a2.user_idx
+		where comment_content_idx = #{content_idx} and a1.comment_user_idx=a2.user_idx order by a1.comment_idx desc
 	</select>	
 	<insert id="addComment" parameterType="com.test.beans.CommentBean">
 		insert into comment_table (COMMENT_IDX,COMMENT_IP,COMMENT_DATE,COMMENT_STATUS,COMMENT_TEXT,COMMENT_CONTENT_IDX,COMMENT_USER_IDX)

@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="product_mapper">
+	<select id="getProductList" parameterType="com.test.beans.ProductBean" resultType="com.test.beans.ProductBean">
+		select product_idx, product_name, product_price, product_image
+		from product_table
+		where product_category1_idx=#{product_category1_idx} 
+		<if test="product_category2_idx != 0">
+		and product_category2_idx=#{product_category2_idx} 
+		</if>
+	</select>
+	<insert id="addProduct">
+		insert into product_table (product_idx, product_ip, product_status, product_date, product_name, product_price,
+								   product_image, product_detail_image, product_category1_idx, product_category2_idx)
+		values(product_seq.nextval, #{product_ip}, 1, sysdate, #{product_name}, ${product_price}, 
+			  #{product_image}, #{product_detail_image}, #{product_category1_idx}, #{product_category2_idx})
+	</insert>
+</mapper>

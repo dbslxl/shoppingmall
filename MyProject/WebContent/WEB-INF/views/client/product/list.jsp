@@ -27,10 +27,25 @@
 		<div class="container">	
 			<ul class="nav-item  navbar-nav">
 				<h3>men></h3>
-				<a href="#" class="nav-link">전체보기</a>
-				<a  href="#" class="nav-link">상의</a>
-				<a  href="#" class="nav-link">하의</a>
-				<a  href="#" class="nav-link">기타</a>
+				<c:url var="path" value="/product/list">
+					<c:param name="product_category1_idx" value="1"/>					
+				</c:url>
+				<a href="${path}" class="nav-link">전체보기</a>
+				<c:url var="path" value="/product/list">
+					<c:param name="product_category1_idx" value="1"/>
+					<c:param name="product_category2_idx" value="1"/>					
+				</c:url>
+				<a  href="${path}" class="nav-link">상의</a>
+				<c:url var="path" value="/product/list">
+					<c:param name="product_category1_idx" value="2"/>
+					<c:param name="product_category2_idx" value="2"/>					
+				</c:url>
+				<a  href="${path}" class="nav-link">하의</a>
+				<c:url var="path" value="/product/list">
+					<c:param name="product_category1_idx" value="3"/>
+					<c:param name="product_category2_idx" value="3"/>					
+				</c:url>
+				<a  href="${path}" class="nav-link">기타</a>
 			</ul>				
 									
 		</div>
@@ -42,7 +57,7 @@
 		<h1>${category_bean.product_category_name}</h1>
 		
 		<div class="row">
-			<c:forEach var="obj" begin="1" end="24">
+			<c:forEach var="obj" items="${productList }">
 				<div class="col-md-3">
 					<div class="card" style="margin-top:15px">
 						<div style="padding : 5px">

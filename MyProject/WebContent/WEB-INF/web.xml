@@ -24,6 +24,11 @@
 			<param-value>/WEB-INF/config/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<multipart-config>
+			<max-file-size>52428800</max-file-size>
+			<max-request-size>524288000</max-request-size>
+			<file-size-threshold>0</file-size-threshold>
+		</multipart-config>
 	</servlet>
 	
 	<!-- 개발자가 사용할 Bean을 정의할 xml을 지정한다. -->
@@ -53,6 +58,24 @@
 	
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<display-name>springMultipartFilter</display-name>
+		<filter-name>springMultipartFilter</filter-name>
+		<filter-class>
+			org.springframework.web.multipart.support.MultipartFilter
+		</filter-class>
+		<!-- servlet-context.xml에 정의한 파일 업로드처리용 bean을 지정한다. -->
+		<init-param>
+			<param-name>multipartResolverBeanName</param-name>
+			<param-value>multipartResolver</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>springMultipartFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 </web-app>

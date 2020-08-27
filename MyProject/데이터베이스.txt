@@ -23,7 +23,8 @@ drop table buy_info_table;
 
 --------------------------------------------------
 
-create sequence PRODUCT_CATEGORY_INFO_SEQ;
+create sequence PRODUCT_CATEGORY1_SEQ;
+create sequence PRODUCT_CATEGORY2_SEQ;
 create sequence BOARD_CATEGORY_SEQ;
 
 create sequence USER_SEQ;
@@ -40,12 +41,19 @@ create sequence BUY_TEMP_SEQ;
 create sequence BUY_SEQ;
 --------------------------------------------------------------------------
 
-create table product_category_table(
-product_category_idx number constraint product_category_pk primary key,
-product_category_ip varchar2(50) not null,
-product_category_date date not null,
-product_category_status number not null,
-product_category_name varchar2(500) not null	
+create table product_category1_table(
+product_category1_idx number constraint product_category1_pk primary key,
+product_category1_ip varchar2(50) not null,
+product_category1_date date not null,
+product_category1_status number not null,
+product_category1_name varchar2(500) not null	
+);
+create table product_category2_table(
+product_category2_idx number constraint product_category2_pk primary key,
+product_category2_ip varchar2(50) not null,
+product_category2_date date not null,
+product_category2_status number not null,
+product_category2_name varchar2(500) not null	
 );
 
 create table board_category_table(
@@ -134,9 +142,12 @@ product_name	varchar2(500) not null,
 product_price	number not null,
 product_image	varchar2(500) not null,
 product_detail_image	varchar2(500) not null,
-product_category_idx	number not null
-           constraint product_info_fk
-           references product_category_table(product_category_idx)
+product_category1_idx	number not null
+           constraint product_category1_fk
+           references product_category1_table(product_category1_idx),
+product_category2_idx	number not null
+           constraint product_category2_fk
+           references product_category2_table(product_category2_idx)
 );
 
 
@@ -187,6 +198,9 @@ new_product_idx number constraint new_product_pk primary key,
 new_product_date date,
 new_porduct_product_idx constraint new_product_fk references product_table(product_idx)
 );
+---------------------------------------------------------------------------------------------------------------------------
+
+insert into product_category1_table values(product_category1_seq.nextval,'0.0.0.0',sysdate,1,'어린이');
 
 select content_subject, content_text, content_writer_idx, (select count(*) from like_table where content_idx =a1.content_idx ) as "like"
 from content_table a1
