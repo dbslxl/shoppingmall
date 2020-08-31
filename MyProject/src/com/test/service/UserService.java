@@ -1,5 +1,7 @@
 package com.test.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,17 @@ public class UserService {
 	}
 	public void modifyUserInfo(UserBean bean) {		
 		userDao.modifyUserInfo(bean);
+	}
+	public List<UserBean> getUserList(){
+		List<UserBean> list = userDao.getUserList();
+		return list;
+	}
+	public List<UserBean> getManagerList(){
+		List<UserBean> list = userDao.getManagerList();
+		return list;
+	}
+	public void modifyUserGrade(UserBean userBean) {
+		userDao.modifyUserGrade(userBean);
 	}
 	
 }

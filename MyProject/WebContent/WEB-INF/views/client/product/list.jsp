@@ -57,20 +57,20 @@
 		<h1>${category_bean.product_category_name}</h1>
 		
 		<div class="row">
-			<c:forEach var="obj" items="${productList }">
+			<c:forEach var="obj" items="${productList}">
 				<div class="col-md-3">
 					<div class="card" style="margin-top:15px">
 						<div style="padding : 5px">
-							<c:url var="path" value="/image/thumbnail.jpg" />
+							<c:url var="path" value="/upload/${obj.product_image}" />
 							<img src="${path}" style="width:100%" />
 						</div>
 						<div class="card-body">
-							<h3 class="card-title">상품 이름</h3>
-							<fmt:formatNumber var="a1" value="29000"/>
+							<h3 class="card-title">${obj.product_name}</h3>
+							<fmt:formatNumber var="a1" value="${obj.product_price}"/>
 							<p class="card-text">${a1}원</p>
 							
 							<c:url var="path" value="/product/detail">
-								
+								<c:param name="product_idx" value="${obj.product_idx}"></c:param>
 							</c:url>
 							<a href="${path}" class="btn btn-primary">자세히보기</a>
 						</div>

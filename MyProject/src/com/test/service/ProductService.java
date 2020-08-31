@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.test.beans.BuyTempBean;
+import com.test.beans.CartBean;
 import com.test.beans.ProductBean;
 import com.test.dao.ProductDAO;
 
@@ -33,5 +35,19 @@ public class ProductService {
 			e.printStackTrace();
 		}
 		return file_name;
+	}
+	public ProductBean getProductOne (int product_idx) {
+		ProductBean bean = productDao.getProductOne(product_idx);
+		return bean;
+	}
+	public void addCart(CartBean cartBean) {
+		productDao.addCart(cartBean);
+	}
+	public List<CartBean> getCartList(int user_idx){
+		List<CartBean> list = productDao.getCartList(user_idx);
+		return list;
+	}
+	public void addBuyTemp(BuyTempBean buyTempBean) {
+		productDao.addBuyTemp(buyTempBean);
 	}
 }

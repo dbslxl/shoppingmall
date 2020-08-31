@@ -81,7 +81,8 @@
 			<mvc:mapping path="/board/write"/>
 			<mvc:mapping path="/product/buy"/>
 			<mvc:mapping path="/product/add_temp"/>
-			<mvc:mapping path="/cart/*"/>
+			<mvc:mapping path="/product/add_cart"/>
+			<mvc:mapping path="/product/cart_list"/>
 			<mvc:exclude-mapping path="/board/list"/>
 			<bean class="com.test.interceptors.CheckLoginInterceptor"/>
 		</mvc:interceptor>

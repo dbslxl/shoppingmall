@@ -29,8 +29,10 @@
 				<div class="card" >
 					<div class="card-header"><h3>회원 관리</h3></div>
 					<div class="card-body">
-						<div><a href="#">회원  관리</a></div>
-						<div><a href="#">관리자 관리</a></div>						
+						<c:url var="path" value="/manager/user/user_list"/>
+						<div><a href="${path }">일반회원  관리</a></div>
+						<c:url var="path" value="/manager/user/manager_list"/>
+						<div><a href="${path}">관리자 관리</a></div>						
 					</div>
 				</div>	
 			</div>

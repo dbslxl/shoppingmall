@@ -52,6 +52,9 @@ public class BoardDAO {
 	public  void addLike(LikeBean likeBean) {
 		sql.insert("board_mapper.addLike",likeBean);
 	}
+	public  void addDislike(LikeBean likeBean) {
+		sql.insert("board_mapper.addDislike",likeBean);
+	}
 	public void removeLike(LikeBean likeBean) {
 		sql.delete("board_mapper.removeLike",likeBean);
 	}

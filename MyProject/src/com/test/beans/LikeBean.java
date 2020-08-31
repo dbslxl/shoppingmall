@@ -5,6 +5,7 @@ public class LikeBean {
 	private String like_ip;
 	private String like_date;
 	private int like_status;
+	private int like_or_dislike;
 	private int like_content_idx;
 	private int like_user_idx;
 	public int getLike_idx() {
@@ -30,6 +31,13 @@ public class LikeBean {
 	}
 	public void setLike_status(int like_status) {
 		this.like_status = like_status;
+	}
+	
+	public int getLike_or_dislike() {
+		return like_or_dislike;
+	}
+	public void setLike_or_dislike(int like_or_dislike) {
+		this.like_or_dislike = like_or_dislike;
 	}
 	public int getLike_content_idx() {
 		return like_content_idx;

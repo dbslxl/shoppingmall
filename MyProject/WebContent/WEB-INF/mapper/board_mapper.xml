@@ -33,7 +33,8 @@
 			   a1.content_writer_idx, a1.content_read_cnt,
 			   a1.content_board_category_idx, a1.content_text,
 			   a2.user_id as content_writer_id,
-			   (select count(*) from like_table where like_content_idx=a1.content_idx) as content_like_cnt,
+			   (select count(*) from like_table where like_content_idx=a1.content_idx and like_or_dislike=1) as content_like_cnt,
+			   (select count(*) from like_table where like_content_idx=a1.content_idx and like_or_dislike=2) as content_dislike_cnt,
 			   (select count(*) from comment_table where comment_content_idx=a1.content_idx)as content_comment_cnt
 	 	from content_table a1, user_table a2
 	 	where content_idx = #{content_idx} and a1.content_writer_idx=a2.user_idx
@@ -56,12 +57,12 @@
 		select * from like_table where like_user_idx=#{like_user_idx} and like_content_idx=#{like_content_idx}
 	</select>
 	<insert id="addLike" parameterType="com.test.beans.LikeBean">
-		insert into like_table (LIKE_IDX,LIKE_IP,LIKE_DATE,LIKE_STATUS,LIKE_CONTENT_IDX,LIKE_USER_IDX)
-		values(like_seq.nextval,#{like_ip}, sysdate, 1, #{like_content_idx},#{like_user_idx})
+		insert into like_table (LIKE_IDX,LIKE_IP,LIKE_DATE,LIKE_STATUS,LIKE_OR_DISLIKE,LIKE_CONTENT_IDX,LIKE_USER_IDX)
+		values(like_seq.nextval,#{like_ip}, sysdate, 1,#{like_or_dislike}, #{like_content_idx},#{like_user_idx})
 	</insert>
 	<delete id="removeLike" parameterType="com.test.beans.LikeBean">
 		delete from like_table where like_content_idx=#{like_content_idx} and like_user_idx=#{like_user_idx}
-	</delete>
+	</delete>	
 	<select id="getCommentList" parameterType="java.lang.Integer" resultType="com.test.beans.CommentBean">
 		select a1.comment_idx, a1.comment_ip, a1.comment_date, a1.comment_status, 
 		a1.comment_text, a1.comment_content_idx, a1.comment_user_idx, a2.user_id as comment_user_id

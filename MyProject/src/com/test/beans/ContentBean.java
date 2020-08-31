@@ -13,8 +13,9 @@ public class ContentBean {
 	
 	private String content_writer_id;
 	private String content_writer_grade;
-	
+		
 	private int content_like_cnt;
+	private int content_dislike_cnt;
 	private int content_comment_cnt;
 	
 	public int getContent_idx() {
@@ -88,6 +89,13 @@ public class ContentBean {
 	}
 	public void setContent_like_cnt(int content_like_cnt) {
 		this.content_like_cnt = content_like_cnt;
+	}
+	
+	public int getContent_dislike_cnt() {
+		return content_dislike_cnt;
+	}
+	public void setContent_dislike_cnt(int content_dislike_cnt) {
+		this.content_dislike_cnt = content_dislike_cnt;
 	}
 	public int getContent_comment_cnt() {
 		return content_comment_cnt;

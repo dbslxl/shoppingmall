@@ -30,7 +30,7 @@
 				<div class="col-md-6" >
 					<div class="card" style="margin:20px">
 						<div style="padding:5px">
-							<c:url var="path" value="/image/thumbnail.jpg"/>
+							<c:url var="path" value="/upload/${productBean.product_image}"/>
 							<img src="${path}" class="card-img-top" style="width:100%"/>	
 									
 						</div>
@@ -38,26 +38,26 @@
 				</div>
 				<div class="col-md-6">
 					<div style="margin:20px;" >
-						<h1 class="card-title">상품명 </h1>
+						<h1 class="card-title">${productBean.product_name } </h1>
 						<hr/>
-						<h3 class="card-text">판매가  :  7,9000원</h3>
+						<h3 class="card-text">판매가  :  ${productBean.product_price}원</h3>
 						
 						
 						<div style=" margin-top:300px">
-							<c:url var="path" value="/cart/add_cart">
-								<c:param name="cart_product_idx" value="${product_bean.product_info_idx}"/>
+							<c:url var="path" value="/product/add_cart">
+								<c:param name="cart_product_idx" value="${productBean.product_idx}"/>
 							</c:url>
 							<a href="${path}" class="btn btn-danger" style="width:45%">장바구니 담기</a>	
 												
 							<c:url var="path" value="/product/add_temp">
-								<c:param name="buy_temp_product_idx" value="${product_bean.product_info_idx }"/>
+								<c:param name="buy_temp_product_idx" value="${productBean.product_idx }"/>
 							</c:url>
 							<a href="${path}" class="btn btn-primary" style="width:45%">구매 하기</a>						
 						</div>
 						
 												
 						<c:url var="path" value="/product/list">
-							<c:param name="product_category_idx" value="${product_bean.product_info_category_idx}"/>
+							<c:param name="product_category_idx" value="${product_bean.product_category_idx}"/>
 						</c:url>
 						<a href="${path}" class="btn btn-dark" style="width:90%;margin-top:7px">목록 보기</a>
 					</div>				
@@ -73,7 +73,7 @@
 		<div class="row" >
 			<div class="col-md-1"></div>
 			<div class="col-md-10">
-			<c:url var="path" value="/image/detail.jpg"/>
+			<c:url var="path" value="/upload/${productBean.product_detail_image }"/>
 			<img alt="jenny" src="${path}" width="100%">
 			
 			</div>

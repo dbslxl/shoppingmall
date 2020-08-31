@@ -1,5 +1,7 @@
 package com.test.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -29,5 +31,16 @@ public class UserDAO {
 	}
 	public void modifyUserInfo(UserBean bean) {
 		sql.update("user_mapper.modifyUserInfo",bean);
+	}
+	public List<UserBean> getUserList(){
+		List<UserBean> list = sql.selectList("user_mapper.getUserList");
+		return list;
+	}
+	public List<UserBean> getManagerList(){
+		List<UserBean> list = sql.selectList("user_mapper.getManagerList");
+		return list;
+	}
+	public void modifyUserGrade(UserBean userBean) {
+		sql.update("user_mapper.modifyUserGrade",userBean);		
 	}
 }

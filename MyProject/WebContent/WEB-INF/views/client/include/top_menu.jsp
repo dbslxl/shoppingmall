@@ -89,7 +89,7 @@
 						<a href='${path }' class='nav-link'>정보수정</a>
 					</li>
 					<li class='nav-item'>
-						<c:url var='path' value='/cart/list'/>
+						<c:url var='path' value='/product/cart_list'/>
 						<a href='${path }' class='nav-link'>장바구니</a>
 					</li>
 					<li class='nav-item'>

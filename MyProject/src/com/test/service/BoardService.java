@@ -56,6 +56,9 @@ public class BoardService {
 	public void addLike(LikeBean likeBean) {
 		boardDao.addLike(likeBean);
 	}
+	public void addDislike(LikeBean likeBean) {
+		boardDao.addDislike(likeBean);
+	}
 	public void removeLike(LikeBean likeBean) {
 		boardDao.removeLike(likeBean);		
 	}

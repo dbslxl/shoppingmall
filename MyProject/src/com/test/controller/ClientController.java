@@ -9,7 +9,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.test.beans.BoardCategoryBean;
+import com.test.beans.BuyTempBean;
+import com.test.beans.CartBean;
 import com.test.beans.CommentBean;
 import com.test.beans.ContentBean;
 import com.test.beans.LikeBean;
@@ -164,13 +165,35 @@ public class ClientController {
 			likeBean.setLike_ip(request.getRemoteAddr());
 			boardService.addLike(likeBean);
 			result="up";
-		}else {
+		}else if(bean.getLike_or_dislike()==likeBean.getLike_or_dislike()){
 			boardService.removeLike(likeBean);
 			result="down";
+		}else {
+			result="dislike";
 		}
 		model.addAttribute("result", result);		
 		return "client/board/like_pro";				
 	}
+//	@PostMapping("/board/dislike_pro")
+//	public String board_dislike_pro(LikeBean likeBean, HttpServletRequest request,Model model) {
+//		String result;
+//		//checkLike
+//		LikeBean bean = boardService.checkLike(likeBean);				
+//		//update table
+//		if(bean==null) {
+//			likeBean.setLike_ip(request.getRemoteAddr());
+//			boardService.addDislike(likeBean);
+//			result="up";
+//		}else if(bean.getLike_or_dislike()==2){
+//			boardService.removeLike(likeBean);
+//			result="down";
+//		}else {
+//			result="like";
+//		}
+//		model.addAttribute("result", result);		
+//		return "client/board/like_pro";				
+//	}
+	
 	@PostMapping("/board/add_comment")
 	public String board_add_comment(CommentBean commentBean, HttpServletRequest request, @RequestParam int board_category_idx,
 									@RequestParam (defaultValue="1") int page, @RequestParam int content_idx, Model model){
@@ -233,7 +256,52 @@ public class ClientController {
 		
 	}
 	@GetMapping("product/detail")
-	public String product_detail() {
+	public String product_detail(@RequestParam int product_idx, Model model) {
+		ProductBean productBean = productService.getProductOne(product_idx);
+		model.addAttribute("productBean", productBean);
+		
 		return "client/product/detail";
 	}
+	@GetMapping("product/add_cart")
+	public String product_add_cart(CartBean cartBean) {
+		cartBean.setCart_user_idx(loginUserBean.getUser_idx());
+		productService.addCart(cartBean);
+		return "client/product/add_cart";
+	}
+	@GetMapping("product/cart_list")
+	public String product_cart_list(Model model) {
+		List<CartBean> cartList = productService.getCartList(loginUserBean.getUser_idx());
+		model.addAttribute("cartList",cartList);
+		return "client/product/cart_list";
+	}
+	@GetMapping("product/add_temp")
+	public String product_add_temp(@RequestParam int[] product_idx_array) {
+		
+		for(int a1 : product_idx_array) {
+			//상품 정보를 가져온다.
+			ProductBean bean1 = productService.getProductOne(a1);
+			
+			//저장한다.
+			BuyTempBean bean2 = new BuyTempBean();
+			bean2.setBuy_temp_product_idx(a1);
+			bean2.setBuy_temp_product_name(bean1.getProduct_name());
+			bean2.setBuy_temp_product_price(bean1.getProduct_price());
+			bean2.setBuy_temp_user_idx(loginUserBean.getUser_idx());
+			
+			productService.addBuyTemp(bean2);
+		}
+		
+		return "client/product/add_temp";
+	}
+	@GetMapping("product/buy")
+	public String product_buy() {
+		
+		return "client/product/buy";
+	}
+	@GetMapping("product/buy_pro")
+	public String product_buy_pro() {
+		
+		return "client/product/buy_complete";
+	}
+	
 }

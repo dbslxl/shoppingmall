@@ -33,7 +33,8 @@
 			<c:url var='path' value="/board/like_pro"/>
 			var data = {			
 				like_user_idx: ${loginUserBean.user_idx},
-			    like_content_idx: ${contentBean.content_idx},		    
+			    like_content_idx: ${contentBean.content_idx},
+			    like_or_dislike:1
 			}
 			$.ajax({
 				url:"${path}",
@@ -43,17 +44,52 @@
 				success : function(result){
 					if(result.trim()=="up"){
 						document.getElementById("like-badge").innerHTML=parseInt(document.getElementById("like-badge").innerHTML)+1
-					}else{
+					}else if(result.trim()=="down"){
 						document.getElementById("like-badge").innerHTML=parseInt(document.getElementById("like-badge").innerHTML)-1
+					}else{
+						alert("이미 비추천한 글입니다");
 					}
 				}
 			})
 		</c:otherwise>
 		</c:choose>
 	}
-	
-	
-	/* function check_login(){
+</script>
+<script>
+
+	function dislike_button(){
+		<c:choose>
+		<c:when test="${loginUserBean.user_name==null }">
+			alert("로그인 해주세요")
+			return;
+		</c:when>
+		<c:otherwise>
+			<c:url var='path' value="/board/like_pro"/>
+			var data = {			
+				like_user_idx: ${loginUserBean.user_idx},
+			    like_content_idx: ${contentBean.content_idx},
+			    like_or_dislike:2
+			}
+			$.ajax({
+				url:"${path}",
+				type : "post",
+				dataType : "text",
+				data : data,
+				success : function(result){
+					if(result.trim()=="up"){
+						document.getElementById("dislike-badge").innerHTML=parseInt(document.getElementById("dislike-badge").innerHTML)+1
+					}else if(result.trim()=="down"){
+						document.getElementById("dislike-badge").innerHTML=parseInt(document.getElementById("dislike-badge").innerHTML)-1
+					}else{
+						alert("이미 추천한 글입니다");
+					}
+				}
+			})
+		</c:otherwise>
+		</c:choose>
+	}
+</script>
+	<%--  function check_login(){
 		<c:choose>
 			<c:when test='${loginUserBean.user_name == null}'> 
 				alert("로그인 해주세요")
@@ -63,9 +99,9 @@
 				return true;
 			</c:otherwise>
 		</c:choose>	
-	}  */
+	}   --%>
 
-</script>
+
 <script>	
 	function check_login(){
 		if(${loginUserBean.user_name==null}){
@@ -105,7 +141,7 @@
 						</div>
 						<div class="text-center">
 						<button type="button" id="like-button" onclick="like_button()" class="btn btn-info">추&nbsp천&nbsp<span id="like-badge" class="badge badge-light">${contentBean.content_like_cnt}</span></button>
-						<button class="btn btn-secondary">비추천</button>
+						<button type="button" id="dislike-button" onclick="dislike_button()" class="btn btn-secondary">비추천<span id="dislike-badge" class="badge badge-light">${contentBean.content_dislike_cnt}</span></button>
 						</div>
 						
 						<div style="margin-top:30px">

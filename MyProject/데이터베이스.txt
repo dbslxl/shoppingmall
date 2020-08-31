@@ -118,6 +118,7 @@ like_idx number not null,
 like_ip varchar2(50) not null,
 like_date date not null,
 like_status number not null,
+like_or_dislike number not null,
 like_content_idx not null constraint like_fk1 references content_table(content_idx),
 like_user_idx not null constraint like_fk2 references user_table(user_idx),
 constraint like_pk primary key(like_content_idx, like_user_idx)
@@ -156,7 +157,10 @@ cart_idx	number constraint cart_pk primary key,
 cart_date	date not null,
 cart_product_idx	number not null
 			constraint cart_fk
-			references product_table(product_idx)
+			references product_table(product_idx),
+cart_user_idx number not null
+			constraint cart_fk2
+			references user_table(user_idx)			
 );
 
 create table buy_temp_table(
@@ -164,6 +168,9 @@ buy_temp_idx	number constraint buy_temp_pk primary key,
 buy_temp_product_idx	number not null
                   constraint buy_temp_fk
                   references product_table(product_idx),
+buy_temp_user_idx number not null
+			constraint buy_temp_fk2
+			references user_table(user_idx),		
 buy_temp_product_name	varchar2(500) not null,
 buy_temp_product_price	number not null
 );

@@ -3,6 +3,7 @@
                         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="product_mapper">
+
 	<select id="getProductList" parameterType="com.test.beans.ProductBean" resultType="com.test.beans.ProductBean">
 		select product_idx, product_name, product_price, product_image
 		from product_table
@@ -17,4 +18,22 @@
 		values(product_seq.nextval, #{product_ip}, 1, sysdate, #{product_name}, ${product_price}, 
 			  #{product_image}, #{product_detail_image}, #{product_category1_idx}, #{product_category2_idx})
 	</insert>
+	<select id="getProductOne" parameterType="java.lang.Integer" resultType="com.test.beans.ProductBean">
+		select * from product_table where product_idx=#{product_idx}
+	</select>
+	<insert id="addCart" parameterType="com.test.beans.CartBean">
+		insert into cart_table (cart_idx, cart_date, cart_product_idx, cart_user_idx)
+		values(cart_seq.nextval, sysdate, #{cart_product_idx}, #{cart_user_idx})
+	</insert>
+	<select id="getCartList" parameterType="java.lang.Integer" resultType="com.test.beans.CartBean">
+		select  a1.cart_idx, a1.cart_date, a1.cart_product_idx, a1.cart_user_idx,
+		a2.product_name as cart_product_name, a2.product_image as cart_product_image
+		from cart_table a1, product_table a2
+		where a1.cart_product_idx = a2.product_idx and a1.cart_user_idx=#{cart_user_idx}
+	</select>
+	<insert id="addBuyTemp" parameterType="com.test.beans.BuyTempBean">
+		insert into buy_temp_table (buy_temp_idx, buy_temp_product_idx, buy_temp_user_idx, buy_temp_product_name, buy_temp_product_price)
+		values(buy_temp_seq.nextval, #{buy_temp_product_idx}, #{buy_temp_user_idx}, #{buy_temp_product_name}, #{buy_temp_product_price})
+	</insert>
 </mapper>
+

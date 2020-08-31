@@ -54,7 +54,7 @@
 						상세이미지 : <input type="file" accept="image/*" name="upload_file2" class="form-control-file border"><br/>
 					</div>
 					<div class="form-group">
-						<button type="submit" class="btn btn-primary btn-block form-submit">저장하기</button> 
+						<button type="submit" class="btn btn-primary btn-block form-submit">등록하기</button> 
 					</div>
 										
 				</form>
