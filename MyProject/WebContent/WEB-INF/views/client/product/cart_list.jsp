@@ -8,7 +8,7 @@
 
 <!DOCTYPE html>
 <html>
-<head>
+<head>	
 <meta charset="UTF-8">
 <meta name='viewport' content='width=device-width; initial-scale=1'/>
 
@@ -30,7 +30,7 @@ function buy_all(){
 	check_all()
 	buy_checked()
 }
-
+	
 function buy_checked(){
 	var param = ''
 		
@@ -78,7 +78,7 @@ function check_all(){
 				
 				<thead>
 					<tr>
-						<th style="width:10%"><input type="checkbox" id="checkbox_all" onclick="check_all()"></th>
+						<th style="width:10%"><!-- <input type="checkbox" id="checkbox_all" onclick="check_all()"> --></th>
 						<th style="width:10%">번호</th>
 						<th>상품명</th>
 						<th style="width:20%">날짜</th>

@@ -243,7 +243,7 @@ public class ClientController {
 		return "client/board/read";
 	}
 	
-	@GetMapping("product/list")
+	@GetMapping("/product/list")
 	public String product_list(ProductBean categoryInfo, HttpServletRequest request, Model model) {
 		
 		if(request.getParameter("product_category2_idx")!=null) {
@@ -255,29 +255,29 @@ public class ClientController {
 		return "client/product/list";
 		
 	}
-	@GetMapping("product/detail")
+	@GetMapping("/product/detail")
 	public String product_detail(@RequestParam int product_idx, Model model) {
 		ProductBean productBean = productService.getProductOne(product_idx);
 		model.addAttribute("productBean", productBean);
 		
 		return "client/product/detail";
 	}
-	@GetMapping("product/add_cart")
+	@GetMapping("/product/add_cart")
 	public String product_add_cart(CartBean cartBean) {
 		cartBean.setCart_user_idx(loginUserBean.getUser_idx());
 		productService.addCart(cartBean);
 		return "client/product/add_cart";
 	}
-	@GetMapping("product/cart_list")
+	@GetMapping("/product/cart_list")
 	public String product_cart_list(Model model) {
 		List<CartBean> cartList = productService.getCartList(loginUserBean.getUser_idx());
 		model.addAttribute("cartList",cartList);
 		return "client/product/cart_list";
 	}
-	@GetMapping("product/add_temp")
-	public String product_add_temp(@RequestParam int[] product_idx_array) {
+	@GetMapping("/product/add_temp")
+	public String product_add_temp(@RequestParam int[] buy_temp_product_idx) {
 		
-		for(int a1 : product_idx_array) {
+		for(int a1 : buy_temp_product_idx) {
 			//상품 정보를 가져온다.
 			ProductBean bean1 = productService.getProductOne(a1);
 			
@@ -291,14 +291,14 @@ public class ClientController {
 			productService.addBuyTemp(bean2);
 		}
 		
-		return "client/product/add_temp";
+		return "redirect:/client/product/buy";
 	}
-	@GetMapping("product/buy")
+	@GetMapping("/product/buy")
 	public String product_buy() {
 		
 		return "client/product/buy";
 	}
-	@GetMapping("product/buy_pro")
+	@GetMapping("/product/buy_pro")
 	public String product_buy_pro() {
 		
 		return "client/product/buy_complete";
