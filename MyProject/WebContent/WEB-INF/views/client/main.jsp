@@ -291,83 +291,32 @@
 	<div class="container" style="margin-bottom:50px">
 		<h1>커뮤니티</h1>
 		<div style="margin-bottom:20px"></div>
-		<table class="table table-hover">
+		<table class='table table-hover text-center'>
 			<thead>
 				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>글쓴이</th>					
-					<th>조회수</th>
-					<th>추천수</th>
+					<th style='width:10%'>글번호</th>
+					<th class='text-left'>제목</th>
+					<th style='width:16%'>작성자</th>
+					<th style='width:7%'>조회수</th>
+					<th style="width:7%">공감</th>
+					<th style="width:7%">비공감</th>
 				</tr>
 			</thead>
 			<tbody>
+				<c:forEach var='obj' items="${contentList }">
 				<tr>
-					<td>1</td>
-					<td>john@example.com</td>
-					<td>Doe</td>
-					<td>100</td>
-					<td>200</td>
+					<td>${obj.content_idx}</td>
+					<c:url var='path' value='/board/read'>
+						<c:param name="content_idx" value='${obj.content_idx }'/>
+						<c:param name="board_category_idx" value='4'/>						
+					</c:url>
+					<td class='text-left'><a class="link" href='${path}'>${obj.content_subject }&nbsp<span class="text-info">[${obj.content_comment_cnt}]</span></a></td>
+					<td>${obj.content_writer_id} </td>
+					<td>${obj.content_read_cnt }</td>
+					<td>${obj.content_like_cnt }</td>
+					<td>${obj.content_dislike_cnt }</td>
 				</tr>
-				<tr>
-					<td>2</td>
-					<td>mary@example.com</td>
-					<td>Moe</td>
-					<td>100</td>
-					<td>200</td>
-					
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>july@example.com</td>
-					<td>Dooley</td>
-					<td>100</td>
-					<td>200</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>john@example.com</td>
-					<td>Doe</td>
-					<td>100</td>
-					<td>200</td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>mary@example.com</td>
-					<td>Moe</td>
-					<td>100</td>
-					<td>200</td>
-					
-				</tr>
-				<tr>
-					<td>6</td>
-					<td>july@example.com</td>
-					<td>Dooley</td>
-					<td>100</td>
-					<td>200</td>
-				</tr>
-				<tr>
-					<td>7</td>
-					<td>john@example.com</td>
-					<td>Doe</td>
-					<td>100</td>
-					<td>200</td>
-				</tr>
-				<tr>
-					<td>8</td>
-					<td>mary@example.com</td>
-					<td>Moe</td>
-					<td>100</td>
-					<td>200</td>
-					
-				</tr>
-				<tr>
-					<td>9</td>
-					<td>july@example.com</td>
-					<td>Dooley</td>
-					<td>100</td>
-					<td>200</td>
-				</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>

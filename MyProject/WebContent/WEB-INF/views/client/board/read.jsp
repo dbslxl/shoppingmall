@@ -132,7 +132,11 @@
 				<div class="card">
 					<div class="card-header d-flex justify-content-between"  >
 						<div><span class="mr-3 font-weight-bold">${contentBean.content_writer_id}님</span><span>${contentBean.content_date}</span></div>
-						<div><span class="mr-3">조회&nbsp${contentBean.content_read_cnt}</span>추천&nbsp${contentBean.content_like_cnt}</div>
+						<div>
+							<span class="mr-1">조회수&nbsp${contentBean.content_read_cnt}</span>
+							<sapn class="mr-1">공감&nbsp${contentBean.content_like_cnt}</sapn>
+							<sapn>비공감&nbsp${contentBean.content_dislike_cnt}</sapn>
+						</div>
 					</div>
 					<div class="card-body">
 												
@@ -140,8 +144,8 @@
 							<div>${contentBean.content_text}</div>
 						</div>
 						<div class="text-center">
-						<button type="button" id="like-button" onclick="like_button()" class="btn btn-info">추&nbsp천&nbsp<span id="like-badge" class="badge badge-light">${contentBean.content_like_cnt}</span></button>
-						<button type="button" id="dislike-button" onclick="dislike_button()" class="btn btn-secondary">비추천<span id="dislike-badge" class="badge badge-light">${contentBean.content_dislike_cnt}</span></button>
+						<button type="button" id="like-button" onclick="like_button()" class="btn btn-info">공&nbsp감&nbsp<span id="like-badge" class="badge badge-light">${contentBean.content_like_cnt}</span></button>
+						<button type="button" id="dislike-button" onclick="dislike_button()" class="btn btn-secondary">비공감<span id="dislike-badge" class="badge badge-light">${contentBean.content_dislike_cnt}</span></button>
 						</div>
 						
 						<div style="margin-top:30px">

@@ -20,13 +20,13 @@
 <script>
 	function set_buyer_info(){
 		//로그인한 사용자 정보를 담아준다.
-		$("#buy_name").val("${user_bean.user_name}")
-		$("#buy_post_code").val("${user_bean.user_postcode}")
-		$("#buy_address1").val("${user_bean.user_address1}")
-		$("#buy_address2").val("${user_bean.user_address2}")
-		$("#buy_phone1").val("${user_bean.user_phone1}")
-		$("#buy_phone2").val("${user_bean.user_phone2}")
-		$("#buy_phone3").val("${user_bean.user_phone3}")
+		$("#buy_name").val("${userBean.user_name}")
+		$("#buy_post_code").val("${userBean.user_postcode}")
+		$("#buy_address1").val("${userBean.user_address1}")
+		$("#buy_address2").val("${userBean.user_address2}")
+		$("#buy_phone1").val("${userBean.user_phone1}")
+		$("#buy_phone2").val("${userBean.user_phone2}")
+		$("#buy_phone3").val("${userBean.user_phone3}")
 		
 	}
 </script>
@@ -50,7 +50,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="obj" items="${buy_list}">
+				<c:forEach var="obj" items="${buyTempList}">
 					<tr>
 						<td>${obj.buy_temp_idx}</td>
 						<td class="text-left">${obj.buy_temp_product_name}</td>
@@ -71,13 +71,13 @@
 				<form action="${path }" method="post">
 					<div class="form-group">
 						<label for="buy_name">구매이름</label>
-						<input type="text" id="buy_name" name="reciever_name" class="form-control">
+						<input type="text" id="buy_name" name="buy_reciever_name" class="form-control">
 					</div>		
 					
 					<div class="form-group">
 						<label for="buy_name">우편번호</label>
 						<div class="input-group">
-							<input type="text" id="buy_post_code" name="reciever_post_code" class="form-control" readonly="readonly"/>
+							<input type="text" id="buy_post_code" name="buy_reciever_post_code" class="form-control" readonly="readonly"/>
 							<div class="input-group-append">
 								<button type="button" class="btn btn-primary">우편번호 찾기</button>
 							</div>
@@ -85,16 +85,16 @@
 					</div>	
 					
 					<div class="form-group">						
-						<input type="text" id="buy_address1" name="reciever_address1" class="form-control" readonly="readonly">
+						<input type="text" id="buy_address1" name="buy_reciever_address1" class="form-control" readonly="readonly">
 					</div>	
 					<div class="form-group">						
-						<input type="text" id="buy_address2" name="reciever_address2" class="form-control">
+						<input type="text" id="buy_address2" name="buy_reciever_address2" class="form-control">
 					</div>
 					<div class="form-group">						
 						<label for="buy_phone1">연락처</label>
 						<div class="row">
 							<div class="col-md-4">
-								<select id="buy_phone1" name="reciever_phone1" class="form-control">
+								<select id="buy_phone1" name="buy_reciever_phone1" class="form-control">
 									<option value="010">010</option>
 									<option value="011">011</option>
 									<option value="017">017</option>
@@ -103,10 +103,10 @@
 								</select>								
 							</div>
 							<div class="col-md-4">
-								<input type="text" id="buy_phone2" name="reciever_phone2" class="form-control" maxlength="4"/>
+								<input type="text" id="buy_phone2" name="buy_reciever_phone2" class="form-control" maxlength="4"/>
 							</div>	
 							<div class="col-md-4">
-								<input type="text" id="buy_phone3" name="reciever_phone3" class="form-control" maxlength="4"/>
+								<input type="text" id="buy_phone3" name="buy_reciever_phone3" class="form-control" maxlength="4"/>
 							</div>								
 						</div>
 					</div>
@@ -119,7 +119,7 @@
 			</div>
 			<div class="col-md-6">
 				<div class="display-3">총 결제 금액</div>
-				<fmt:formatNumber var="a1" value="${price_total}"/>
+				<fmt:formatNumber var="a1" value="${totalPrice}"/>
 				<div class="display-1">${a1}원</div>
 			</div>
 		</div>

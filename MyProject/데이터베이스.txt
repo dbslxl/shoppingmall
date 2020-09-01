@@ -176,14 +176,17 @@ buy_temp_product_price	number not null
 );
 
 create table buy_table(
-buy_idx	num	ber constraint buy_info_pk primary key,
+buy_idx	number constraint buy_info_pk primary key,
 buy_ip	varchar2(50) not null,
 buy_status	number not null,
 buy_date	date not null,
 buy_product_name	varchar2(500) not null,
 buy_product_price	number not null,
+buy_product_idx number not null
+				constraint buy_fk
+				references product_table(product_idx),
 buy_user_idx	number not null
-                    constraint buy_info_fk
+                    constraint buy_fk2
                     references user_table(user_idx),
 buy_reciever_name	varchar2(500) not null,
 buy_reciever_post_code	varchar2(10) not null,

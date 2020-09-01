@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.test.beans.BuyBean;
 import com.test.beans.BuyTempBean;
 import com.test.beans.CartBean;
 import com.test.beans.ProductBean;
@@ -49,5 +50,16 @@ public class ProductService {
 	}
 	public void addBuyTemp(BuyTempBean buyTempBean) {
 		productDao.addBuyTemp(buyTempBean);
+	}
+	public List<BuyTempBean> getBuyTempList(int user_idx){
+		List<BuyTempBean> list = productDao.getBuyTempList(user_idx);
+		return list;
+	}
+	public int getTotalPrice(int user_idx) {
+		int total=productDao.getTotalPrice(user_idx);
+		return total;
+	}
+	public void addBuyInfo(BuyBean buyBean) {
+		productDao.addBuyInfo(buyBean);
 	}
 }

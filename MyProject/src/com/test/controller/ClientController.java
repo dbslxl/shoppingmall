@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.test.beans.BoardCategoryBean;
+import com.test.beans.BuyBean;
 import com.test.beans.BuyTempBean;
 import com.test.beans.CartBean;
 import com.test.beans.CommentBean;
@@ -44,7 +45,10 @@ public class ClientController {
 	private ProductService productService;
 	
 	@GetMapping("/main")
-	public String main() {
+	public String main(Model model) {
+		
+		List<ContentBean> contentList = boardService.getContentList(4, 1);
+		model.addAttribute("contentList", contentList);
 		return "client/main";
 	}	
 	@GetMapping("/user/join")
@@ -291,15 +295,34 @@ public class ClientController {
 			productService.addBuyTemp(bean2);
 		}
 		
-		return "redirect:/client/product/buy";
+		return "redirect:/product/buy";
 	}
 	@GetMapping("/product/buy")
-	public String product_buy() {
-		
+	public String product_buy(Model model) {
+		UserBean userBean = userService.getUserInfo(loginUserBean.getUser_idx());
+		model.addAttribute("userBean", userBean);
+		List<BuyTempBean> buyTempList = productService.getBuyTempList(loginUserBean.getUser_idx());
+		model.addAttribute("buyTempList", buyTempList);
+		int totalPrice=productService.getTotalPrice(loginUserBean.getUser_idx());
+		model.addAttribute("totalPrice",totalPrice);
 		return "client/product/buy";
 	}
-	@GetMapping("/product/buy_pro")
-	public String product_buy_pro() {
+	@PostMapping("/product/buy_pro")
+	public String product_buy_pro(BuyBean buyBean, HttpServletRequest request) {
+		
+		List<BuyTempBean> list = productService.getBuyTempList(loginUserBean.getUser_idx());
+		for(BuyTempBean bean : list) {
+			buyBean.setBuy_product_idx(bean.getBuy_temp_product_idx());
+			buyBean.setBuy_product_name(bean.getBuy_temp_product_name());
+			buyBean.setBuy_product_price(bean.getBuy_temp_product_price());
+			buyBean.setBuy_user_idx(loginUserBean.getUser_idx());
+			buyBean.setBuy_ip(request.getRemoteAddr());
+			productService.addBuyInfo(buyBean);
+		}
+		return "client/product/buy_complete";
+	}
+	@GetMapping("/product/buy_complete")
+	public String product_buy_complete(Model model) {
 		
 		return "client/product/buy_complete";
 	}

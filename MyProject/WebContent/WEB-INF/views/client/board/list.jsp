@@ -60,7 +60,8 @@
 					<th class='text-left'>제목</th>
 					<th style='width:16%'>작성자</th>
 					<th style='width:7%'>조회수</th>
-					<th style="width:7%">추천수</th>
+					<th style="width:7%">공감</th>
+					<th style="width:7%">비공감</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -76,6 +77,7 @@
 					<td>${obj.content_writer_id} </td>
 					<td>${obj.content_read_cnt }</td>
 					<td>${obj.content_like_cnt }</td>
+					<td>${obj.content_dislike_cnt }</td>
 				</tr>
 				</c:forEach>
 			</tbody>

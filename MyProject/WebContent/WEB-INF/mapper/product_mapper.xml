@@ -35,5 +35,25 @@
 		insert into buy_temp_table (buy_temp_idx, buy_temp_product_idx, buy_temp_user_idx, buy_temp_product_name, buy_temp_product_price)
 		values(buy_temp_seq.nextval, #{buy_temp_product_idx}, #{buy_temp_user_idx}, #{buy_temp_product_name}, #{buy_temp_product_price})
 	</insert>
+	<select id="getBuyTempList" parameterType="java.lang.Integer" resultType="com.test.beans.BuyTempBean">
+		select * from buy_temp_table where buy_temp_user_idx=#{buy_temp_user_idx}
+	</select>
+	<select id="getTotalPrice" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select sum(buy_temp_product_price) from buy_temp_table where buy_temp_user_idx = #{user_idx}
+	</select>
+	<insert id="addBuyInfo" parameterType="com.test.beans.BuyBean">
+		insert into buy_table
+		  (buy_idx, buy_ip, buy_status, buy_date, 
+		   buy_product_name, buy_product_price, buy_product_idx,
+		   buy_user_idx, buy_reciever_name, buy_reciever_post_code, 
+		   buy_reciever_address1, buy_reciever_address2, buy_reciever_phone1,
+		   buy_reciever_phone2, buy_reciever_phone3)
+	    values 
+	      (BUY_SEQ.nextval, #{buy_ip}, 1, sysdate,
+	       #{buy_product_name}, #{buy_product_price},#{buy_product_idx},
+	       #{buy_user_idx}, #{buy_reciever_name}, #{buy_reciever_post_code},
+	       #{buy_reciever_address1}, #{buy_reciever_address2}, #{buy_reciever_phone1},
+	       #{buy_reciever_phone2}, #{buy_reciever_phone3})
+	</insert>
 </mapper>
 

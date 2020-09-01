@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.test.beans.BuyBean;
 import com.test.beans.BuyTempBean;
 import com.test.beans.CartBean;
 import com.test.beans.ProductBean;
@@ -35,5 +36,16 @@ public class ProductDAO {
 	}
 	public void addBuyTemp(BuyTempBean buyTempBean) {
 		sql.insert("product_mapper.addBuyTemp",buyTempBean);
+	}
+	public List<BuyTempBean> getBuyTempList(int user_idx){
+		List<BuyTempBean> list = sql.selectList("product_mapper.getBuyTempList",user_idx);
+		return list;
+	}
+	public int getTotalPrice(int user_idx) {
+		int totalPrice = sql.selectOne("product_mapper.getTotalPrice",user_idx);
+		return totalPrice;		
+	}
+	public void addBuyInfo(BuyBean buyBean) {
+		sql.insert("product_mapper.addBuyInfo",buyBean);
 	}
 }

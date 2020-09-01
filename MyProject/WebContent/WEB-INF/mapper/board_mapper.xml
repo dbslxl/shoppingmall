@@ -9,7 +9,8 @@
 	<select id="getContentList" parameterType="java.lang.Integer" resultType="com.test.beans.ContentBean">
 		select a1.content_idx, a1.content_ip, a1.content_status, a1.content_date, a1.content_subject, a1.content_read_cnt, a1.content_text,
 			   a2.user_id as content_writer_id, a2.user_grade as content_writer_grade, 
-			   (select count(*) from like_table where like_content_idx=a1.content_idx) as content_like_cnt,
+			   (select count(*) from like_table where like_content_idx=a1.content_idx and like_or_dislike=1) as content_like_cnt,
+			   (select count(*) from like_table where like_content_idx=a1.content_idx and like_or_dislike=2) as content_dislike_cnt,
 			   (select count(*) from comment_table where comment_content_idx=a1.content_idx) as content_comment_cnt
 		from content_table a1, user_table a2
 		where content_board_category_idx=#{board_category_idx} and a1.content_status=1 and a1.content_writer_idx=a2.user_idx
@@ -18,7 +19,8 @@
 	<select id="getContentListLike" parameterType="java.lang.Integer" resultType="com.test.beans.ContentBean">
 		select a1.content_idx, a1.content_ip, a1.content_status, a1.content_date, a1.content_subject, a1.content_read_cnt, a1.content_text,
 			   a2.user_id as content_writer_id, a2.user_grade as content_writer_grade, 
-			   (select count(*) from like_table where like_content_idx=a1.content_idx) as content_like_cnt,
+			   (select count(*) from like_table where like_content_idx=a1.content_idx and like_or_dislike=1) as content_like_cnt,
+			   (select count(*) from like_table where like_content_idx=a1.content_idx and like_or_dislike=2) as content_dislike_cnt,
 			   (select count(*) from comment_table where comment_content_idx=a1.content_idx) as content_comment_cnt
 		from content_table a1, user_table a2
 		where content_board_category_idx=#{board_category_idx} and a1.content_status=1 and a1.content_writer_idx=a2.user_idx
