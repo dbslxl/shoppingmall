@@ -66,6 +66,7 @@ public class ManagerController {
 		productBean.setProduct_detail_image(str2);
 		productBean.setProduct_ip(request.getRemoteAddr());
 		productService.addProduct(productBean);
+		
 		return "manager/product/add_product_pro";
 	}
 	

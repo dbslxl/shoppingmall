@@ -47,7 +47,7 @@
 					}else if(result.trim()=="down"){
 						document.getElementById("like-badge").innerHTML=parseInt(document.getElementById("like-badge").innerHTML)-1
 					}else{
-						alert("이미 비추천한 글입니다");
+						alert("이미 비공감한 글입니다");
 					}
 				}
 			})
@@ -81,7 +81,7 @@
 					}else if(result.trim()=="down"){
 						document.getElementById("dislike-badge").innerHTML=parseInt(document.getElementById("dislike-badge").innerHTML)-1
 					}else{
-						alert("이미 추천한 글입니다");
+						alert("이미 공감한 글입니다");
 					}
 				}
 			})

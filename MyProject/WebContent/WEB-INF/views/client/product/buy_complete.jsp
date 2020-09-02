@@ -31,16 +31,19 @@
 			<thead>
 				<tr>
 					<th style="width:10%">번호</th>
-					<th class="text-left">상품명</th>
-					<th style="width:20%">가격</th>					
+					<th >상품명</th>
+					<th style="width:20%">가격</th>
+					<th style="width:20%">날짜</th>						
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="i" begin="1" end="7">
+				<c:forEach var="obj" items="${buyList}">
 					<tr>
-						<td>${i}</td>
-						<td>상품 ${i}</td>
-						<td>1,000,000</td>												
+						<td>${obj.buy_idx}</td>
+						<td>${obj.buy_product_name}</td>
+						<fmt:formatNumber var="a1" value="${obj.buy_product_price }"/>
+						<td>${a1}</td>	
+						<td>${obj.buy_date }											
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -49,10 +52,9 @@
 		<c:url var="path" value="/main"/>
 		<a href="${path}"></a>		
 		<div class="text-right">		
-			<c:url var="path" value="/user/buy_history"/>
-			<a href="${path}" class="btn btn-primary">구매 이력보기</a>	
+			
 			<c:url var="path" value="/main"/>	
-			<a href="${path}" class="btn btn-primary">홈 으로</a>
+			<a href="${path}" class="btn btn-lg btn-info">홈 으로</a>
 		</div>
 		
 	</div>

@@ -46,7 +46,10 @@ public class ClientController {
 	
 	@GetMapping("/main")
 	public String main(Model model) {
-		
+		List<ProductBean> newProductList = productService.getNewProductList();
+		model.addAttribute("newProductList",newProductList);
+		List<ProductBean> bestProductList = productService.getBestProductList();
+		model.addAttribute("bestProductList",bestProductList);
 		List<ContentBean> contentList = boardService.getContentList(4, 1);
 		model.addAttribute("contentList", contentList);
 		return "client/main";
@@ -255,6 +258,7 @@ public class ClientController {
 		}		
 		List<ProductBean> list = productService.getProductList(categoryInfo);
 		model.addAttribute("productList", list);
+		model.addAttribute("product_category1_idx",categoryInfo.getProduct_category1_idx());
 		
 		return "client/product/list";
 		
@@ -280,7 +284,7 @@ public class ClientController {
 	}
 	@GetMapping("/product/add_temp")
 	public String product_add_temp(@RequestParam int[] buy_temp_product_idx) {
-		
+		productService.deleteBuyTemp(loginUserBean.getUser_idx());
 		for(int a1 : buy_temp_product_idx) {
 			//상품 정보를 가져온다.
 			ProductBean bean1 = productService.getProductOne(a1);
@@ -319,11 +323,12 @@ public class ClientController {
 			buyBean.setBuy_ip(request.getRemoteAddr());
 			productService.addBuyInfo(buyBean);
 		}
-		return "client/product/buy_complete";
+		return "client/product/buy_pro";
 	}
 	@GetMapping("/product/buy_complete")
 	public String product_buy_complete(Model model) {
-		
+		List<BuyBean> buyList = productService.getBuyList(loginUserBean.getUser_idx());
+		model.addAttribute("buyList",buyList);
 		return "client/product/buy_complete";
 	}
 	

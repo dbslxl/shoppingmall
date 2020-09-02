@@ -60,232 +60,55 @@
 	<%--인기 상품 목록 부분--%>
 	<div class="container" style="margin-top: 50px">
 		<h1>인기 상품</h1>
-		<div style="margin-bottom:20px"></div>
-		<div class="row" style="margin-bottom: 30px; margin-bottom: 30px">
-			<div class="col-md-3">
-				<div class="card">
-					<div style="padding: 5px">
-						<img src="image/222.jpg" style="width: 100%" />
-					</div>
-					<div class="card-body">
-						<h3 class="card-title">상품1</h3>
-						<p class="card-text">100,000원</p>
-						<c:url var="path" value="/product/detail"></c:url>
-						<a href="${path}" class="btn btn-primary">자세히보기</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3">
-				<div class="card">
-					<div style="padding: 5px">
-						<img src="image/222.jpg" style="width: 100%" />
-					</div>
-					<div class="card-body">
-						<h3 class="card-title">상품1</h3>
-						<p class="card-text">100,000원</p>
-						<a href="${path}" class="btn btn-primary">자세히보기</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3">
-				<div class="card">
-					<div style="padding: 5px">
-						<img src="image/222.jpg" style="width: 100%" />
-					</div>
-					<div class="card-body">
-						<h3 class="card-title">상품1</h3>
-						<p class="card-text">100,000원</p>
-						<a href="${path}" class="btn btn-primary">자세히보기</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3">
-				<div class="card">
-					<div style="padding: 5px">
-						<img src="image/222.jpg" style="width: 100%" />
-					</div>
-					<div class="card-body">
-						<h3 class="card-title">상품1</h3>
-						<p class="card-text">100,000원</p>
-						<a href="${path}" class="btn btn-primary">자세히보기</a>
-					</div>
-				</div>
-			</div>
-		</div>
+		<div style="margin-bottom:30px"></div>
 		<div class="row" style="margin-bottom: 30px">
-			<div class="col-md-3">
+			<c:forEach var="obj" items="${bestProductList }">
+				<div class="col-md-3" style="margin-bottom: 30px">
 				<div class="card">
 					<div style="padding: 5px">
-						<img src="image/222.jpg" style="width: 100%" />
+						<c:url var="path" value="/upload/${obj.product_image}"></c:url>
+						<img src="${path}" style="width: 100%" />
 					</div>
 					<div class="card-body">
-						<h3 class="card-title">상품1</h3>
-						<p class="card-text">100,000원</p>
-						<c:url var="path" value="/product/detail"></c:url>
-						<a href="${path}" class="btn btn-primary">자세히보기</a>
+						<h3 class="card-title">${obj.product_name}</h3>
+						<fmt:formatNumber var="a1" value="${obj.product_price}"/>
+						<p class="card-text">${a1}원</p>
+						<c:url var="path" value="/product/detail">
+							<c:param name="product_idx" value="${obj.product_idx }"/>
+						</c:url>
+						<a href="${path}" class="btn btn-sm btn-block btn-outline-secondary">자세히보기</a>
 					</div>
 				</div>
-			</div>
-
-			<div class="col-md-3">
-				<div class="card">
-					<div style="padding: 5px">
-						<img src="image/222.jpg" style="width: 100%" />
-					</div>
-					<div class="card-body">
-						<h3 class="card-title">상품1</h3>
-						<p class="card-text">100,000원</p>
-						<a href="#" class="btn btn-primary">자세히보기</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3">
-				<div class="card">
-					<div style="padding: 5px">
-						<img src="image/222.jpg" style="width: 100%" />
-					</div>
-					<div class="card-body">
-						<h3 class="card-title">상품1</h3>
-						<p class="card-text">100,000원</p>
-						<a href="#" class="btn btn-primary">자세히보기</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3">
-				<div class="card">
-					<div style="padding: 5px">
-						<img src="image/222.jpg" style="width: 100%" />
-					</div>
-					<div class="card-body">
-						<h3 class="card-title">상품1</h3>
-						<p class="card-text">100,000원</p>
-						<a href="#" class="btn btn-primary">자세히보기</a>
-					</div>
-				</div>
-			</div>
+				</div>			
+			</c:forEach>
 		</div>
-
 	</div>
-
 	<%--신 상품 목록 부분--%>
 	<div class="container" style="margin-top: 50px">
 		<h1>신 상품</h1>
 		
 		<div class="row" style="margin-bottom: 30px; margin-top: 30px">
-			<div class="col-md-3">
+			<c:forEach var="obj" items="${newProductList }">
+				<div class="col-md-3" style="margin-bottom: 30px">
 				<div class="card">
 					<div style="padding: 5px">
-						<img src="image/111.jpg" style="width: 100%" />
+						<c:url var="path" value="/upload/${obj.product_image}"></c:url>
+						<img src="${path}" style="width: 100%" />
 					</div>
 					<div class="card-body">
-						<h3 class="card-title">상품1</h3>
-						<p class="card-text">100,000원</p>
-						<c:url var="path" value="/product/detail"></c:url>
-						<a href="${path}" class="btn btn-primary">자세히보기</a>
+						<h3 class="card-title">${obj.product_name}</h3>
+						<fmt:formatNumber var="a1" value="${obj.product_price}"/>
+						<p class="card-text">${a1}원</p>
+						<c:url var="path" value="/product/detail">
+							<c:param name="product_idx" value="${obj.product_idx }"/>
+						</c:url>
+						<a href="${path}" class="btn btn-sm btn-block btn-outline-secondary">자세히보기</a>
 					</div>
 				</div>
-			</div>
-
-			<div class="col-md-3">
-				<div class="card">
-					<div style="padding: 5px">
-						<img src="image/111.jpg" style="width: 100%" />
-					</div>
-					<div class="card-body">
-						<h3 class="card-title">상품1</h3>
-						<p class="card-text">100,000원</p>
-						<a href="#" class="btn btn-primary">자세히보기</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3">
-				<div class="card">
-					<div style="padding: 5px">
-						<img src="image/111.jpg" style="width: 100%" />
-					</div>
-					<div class="card-body">
-						<h3 class="card-title">상품1</h3>
-						<p class="card-text">100,000원</p>
-						<a href="#" class="btn btn-primary">자세히보기</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3">
-				<div class="card">
-					<div style="padding: 5px">
-						<img src="image/111.jpg" style="width: 100%" />
-					</div>
-					<div class="card-body">
-						<h3 class="card-title">상품1</h3>
-						<p class="card-text">100,000원</p>
-						<a href="#" class="btn btn-primary">자세히보기</a>
-					</div>
-				</div>
-			</div>
+				</div>			
+			</c:forEach>
 		</div>
-		<div class="row" style="margin-bottom: 30px">
-			<div class="col-md-3">
-				<div class="card">
-					<div style="padding: 5px">
-						<img src="image/111.jpg" style="width: 100%" />
-					</div>
-					<div class="card-body">
-						<h3 class="card-title">상품1</h3>
-						<p class="card-text">100,000원</p>
-						<c:url var="path" value="/product/detail"></c:url>
-						<a href="${path}" class="btn btn-primary">자세히보기</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3">
-				<div class="card">
-					<div style="padding: 5px">
-						<img src="image/111.jpg" style="width: 100%" />
-					</div>
-					<div class="card-body">
-						<h3 class="card-title">상품1</h3>
-						<p class="card-text">100,000원</p>
-						<a href="#" class="btn btn-primary">자세히보기</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3">
-				<div class="card">
-					<div style="padding: 5px">
-						<img src="image/111.jpg" style="width: 100%" />
-					</div>
-					<div class="card-body">
-						<h3 class="card-title">상품1</h3>
-						<p class="card-text">100,000원</p>
-						<a href="#" class="btn btn-primary">자세히보기</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3">
-				<div class="card">
-					<div style="padding: 5px">
-						<img src="image/111.jpg" style="width: 100%" />
-					</div>
-					<div class="card-body">
-						<h3 class="card-title">상품1</h3>
-						<p class="card-text">100,000원</p>
-						<a href="#" class="btn btn-primary">자세히보기</a>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</div>
+	</div>	
 
 	<%--커뮤니티 인기글 --%>
 	<div class="container" style="margin-bottom:50px">
@@ -310,7 +133,7 @@
 						<c:param name="content_idx" value='${obj.content_idx }'/>
 						<c:param name="board_category_idx" value='4'/>						
 					</c:url>
-					<td class='text-left'><a class="link" href='${path}'>${obj.content_subject }&nbsp<span class="text-info">[${obj.content_comment_cnt}]</span></a></td>
+					<td class='text-left'><a class="link text-dark" href='${path}'>${obj.content_subject }&nbsp<span class="text-info">[${obj.content_comment_cnt}]</span></a></td>
 					<td>${obj.content_writer_id} </td>
 					<td>${obj.content_read_cnt }</td>
 					<td>${obj.content_like_cnt }</td>
@@ -320,7 +143,7 @@
 			</tbody>
 		</table>
 	</div>
-
-	<c:import url="/WEB-INF/views/client/include/footer.jsp" />
+	<c:import url="/WEB-INF/views/client/include/footer.jsp"/>
+	
 </body>
 </html>

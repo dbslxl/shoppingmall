@@ -53,7 +53,7 @@ function buy_checked(){
 	}
 }
 
-function check_all(){
+function check_box_all(){
 	if(document.getElementById("checkbox_all").checked){
 		$("input:checkbox").prop("checked",true)
 	}else{
@@ -108,8 +108,7 @@ function check_all(){
 							</td>
 						</tr>
 					</c:forEach>
-				</tbody>
-			
+				</tbody>			
 			</table>
 			<hr/>
 			<div class="text-center mt-5">

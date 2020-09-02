@@ -28,21 +28,21 @@
 			<ul class="nav-item  navbar-nav">
 				<h3>men></h3>
 				<c:url var="path" value="/product/list">
-					<c:param name="product_category1_idx" value="1"/>					
+					<c:param name="product_category1_idx" value="${product_category1_idx }"/>					
 				</c:url>
 				<a href="${path}" class="nav-link">전체보기</a>
 				<c:url var="path" value="/product/list">
-					<c:param name="product_category1_idx" value="1"/>
+					<c:param name="product_category1_idx" value="${product_category1_idx }"/>
 					<c:param name="product_category2_idx" value="1"/>					
 				</c:url>
 				<a  href="${path}" class="nav-link">상의</a>
 				<c:url var="path" value="/product/list">
-					<c:param name="product_category1_idx" value="2"/>
+					<c:param name="product_category1_idx" value="${product_category1_idx }"/>
 					<c:param name="product_category2_idx" value="2"/>					
 				</c:url>
 				<a  href="${path}" class="nav-link">하의</a>
 				<c:url var="path" value="/product/list">
-					<c:param name="product_category1_idx" value="3"/>
+					<c:param name="product_category1_idx" value="${product_category1_idx }"/>
 					<c:param name="product_category2_idx" value="3"/>					
 				</c:url>
 				<a  href="${path}" class="nav-link">기타</a>
@@ -81,7 +81,7 @@
 		</div>
 		
 		<%--pagination --%>
-		<ul class="pagination justify-content-center" style="margin-top:50px">
+		<%-- <ul class="pagination justify-content-center" style="margin-top:50px">
 			<li class="page-item">
 				<c:url var="path" value="/product/list" />
 				<a href="${path}" class="page-link">이전</a>			
@@ -96,7 +96,7 @@
 			<li class="page-item">				
 				<a href="${path}" class="page-link">다음</a>			
 			</li>
-		</ul>
+		</ul> --%>
 	</div>
 	
 	<div style="margin-top:70px"></div>

@@ -2,6 +2,7 @@ package com.test.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,6 +19,16 @@ public class ProductDAO {
 	
 	public List<ProductBean> getProductList(ProductBean categoryInfo){
 		List<ProductBean> list = sql.selectList("product_mapper.getProductList",categoryInfo);
+		return list;
+	}
+	public List<ProductBean> getNewProductList(){
+		RowBounds rowBounds = new RowBounds(0, 8);
+		List<ProductBean> list = sql.selectList("product_mapper.getNewProductList",0,rowBounds);
+		return list;
+	}
+	public List<ProductBean> getBestProductList(){
+		RowBounds rowBounds = new RowBounds(0, 8);
+		List<ProductBean> list = sql.selectList("product_mapper.getBestProductList",0,rowBounds);
 		return list;
 	}
 	public void addProduct(ProductBean productBean) {
@@ -37,6 +48,9 @@ public class ProductDAO {
 	public void addBuyTemp(BuyTempBean buyTempBean) {
 		sql.insert("product_mapper.addBuyTemp",buyTempBean);
 	}
+	public void deleteBuyTemp(int user_idx) {
+		sql.delete("product_mapper.deleteBuyTemp",user_idx);
+	}
 	public List<BuyTempBean> getBuyTempList(int user_idx){
 		List<BuyTempBean> list = sql.selectList("product_mapper.getBuyTempList",user_idx);
 		return list;
@@ -47,5 +61,9 @@ public class ProductDAO {
 	}
 	public void addBuyInfo(BuyBean buyBean) {
 		sql.insert("product_mapper.addBuyInfo",buyBean);
+	}
+	public List<BuyBean> getBuyList(int user_idx) {
+		List<BuyBean> list = sql.selectList("product_mapper.getBuyList",user_idx);
+		return list;
 	}
 }

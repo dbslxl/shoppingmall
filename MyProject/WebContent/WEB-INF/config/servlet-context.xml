@@ -86,6 +86,10 @@
 			<mvc:exclude-mapping path="/board/list"/>
 			<bean class="com.test.interceptors.CheckLoginInterceptor"/>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/manager/**"/>
+			<bean class="com.test.interceptors.CheckManagerInterceptor"/>
+		</mvc:interceptor>
 	</mvc:interceptors>
 	
 	<!-- 파일 업로드처리를 위한 bean -->

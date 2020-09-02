@@ -6,8 +6,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<c:url var="path" value="/manager/product/add_product"/>
+<!DOCTYPE html>
+<c:url var="path" value="/product/buy_complete"></c:url>
 <script>
-	alert("저장되었습니다.")
+	alert("구매가 완료 되었습니다.")
 	location.href="${path}"
 </script>

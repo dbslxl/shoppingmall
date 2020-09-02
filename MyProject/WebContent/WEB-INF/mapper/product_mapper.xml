@@ -12,6 +12,16 @@
 		and product_category2_idx=#{product_category2_idx} 
 		</if>
 	</select>
+	<select id="getNewProductList" resultType="com.test.beans.ProductBean">
+		select product_idx, product_name, product_price, product_image
+		from product_table
+		order by product_date
+	</select>
+	<select id="getBestProductList" resultType="com.test.beans.ProductBean">
+		select product_idx, product_name, product_price, product_image
+		from product_table a1
+		order by (select count(*) from buy_table where buy_product_idx = a1.product_idx) desc
+	</select>
 	<insert id="addProduct">
 		insert into product_table (product_idx, product_ip, product_status, product_date, product_name, product_price,
 								   product_image, product_detail_image, product_category1_idx, product_category2_idx)
@@ -38,6 +48,9 @@
 	<select id="getBuyTempList" parameterType="java.lang.Integer" resultType="com.test.beans.BuyTempBean">
 		select * from buy_temp_table where buy_temp_user_idx=#{buy_temp_user_idx}
 	</select>
+	<delete id="deleteBuyTemp" parameterType="java.lang.Integer">
+		delete from buy_temp_table where buy_temp_user_idx=#{user_idx}
+	</delete>
 	<select id="getTotalPrice" parameterType="java.lang.Integer" resultType="java.lang.Integer">
 		select sum(buy_temp_product_price) from buy_temp_table where buy_temp_user_idx = #{user_idx}
 	</select>
@@ -55,5 +68,8 @@
 	       #{buy_reciever_address1}, #{buy_reciever_address2}, #{buy_reciever_phone1},
 	       #{buy_reciever_phone2}, #{buy_reciever_phone3})
 	</insert>
+	<select id="getBuyList" parameterType="java.lang.Integer" resultType="com.test.beans.BuyBean">
+		select * from buy_table where buy_user_idx = #{buy_user_idx}
+	</select>
 </mapper>
 

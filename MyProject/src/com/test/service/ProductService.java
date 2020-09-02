@@ -3,6 +3,7 @@ package com.test.service;
 import java.io.File;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +21,15 @@ public class ProductService {
 	
 	public List<ProductBean> getProductList(ProductBean categoryInfo){
 		List<ProductBean> list = productDao.getProductList(categoryInfo);
+		return list;
+	}
+	public List<ProductBean> getNewProductList(){
+		RowBounds rowBounds = new RowBounds(0, 10);
+		List<ProductBean> list = productDao.getNewProductList();
+		return list;
+	}
+	public List<ProductBean> getBestProductList(){
+		List<ProductBean> list = productDao.getBestProductList();
 		return list;
 	}
 	public void addProduct(ProductBean productBean) {
@@ -51,6 +61,9 @@ public class ProductService {
 	public void addBuyTemp(BuyTempBean buyTempBean) {
 		productDao.addBuyTemp(buyTempBean);
 	}
+	public void deleteBuyTemp(int user_idx) {
+		productDao.deleteBuyTemp(user_idx);
+	}
 	public List<BuyTempBean> getBuyTempList(int user_idx){
 		List<BuyTempBean> list = productDao.getBuyTempList(user_idx);
 		return list;
@@ -61,5 +74,9 @@ public class ProductService {
 	}
 	public void addBuyInfo(BuyBean buyBean) {
 		productDao.addBuyInfo(buyBean);
+	}
+	public List<BuyBean> getBuyList(int user_idx) {
+		List<BuyBean> list = productDao.getBuyList(user_idx);
+		return list;
 	}
 }

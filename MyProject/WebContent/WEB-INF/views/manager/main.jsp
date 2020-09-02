@@ -52,9 +52,7 @@
 					<div class="card-header"><h3>상품 관리</h3></div>
 					<div class="card-body">
 						<c:url var="path" value="/manager/product/add_product"></c:url>
-						<div><a href="${path}">상품 등록</a></div>
-						<div><a href="#">인기 상품 등록</a></div>	
-						<div><a href="#">신상품 등록</a></div>
+						<div><a href="${path}">상품 등록</a></div>						
 						<div><a href="#">구매상품 관리</a></div>								
 					</div>
 				</div>	

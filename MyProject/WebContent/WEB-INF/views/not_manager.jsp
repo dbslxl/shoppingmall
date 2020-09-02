@@ -6,8 +6,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<c:url var="path" value="/manager/product/add_product"/>
+<c:url var="path" value="/main"/>
 <script>
-	alert("저장되었습니다.")
+	alert("접근 권한이 없습니다.")
 	location.href="${path}"
 </script>

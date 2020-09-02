@@ -93,7 +93,7 @@
 						<a href='${path }' class='nav-link'>장바구니</a>
 					</li>
 					<li class='nav-item'>
-						<c:url var='path' value='/user/buy_history'/>
+						<c:url var='path' value='/product/buy_complete'/>
 						<a href='${path }' class='nav-link'>구매이력</a>
 					</li>					
 					
