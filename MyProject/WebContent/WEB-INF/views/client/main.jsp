@@ -32,7 +32,7 @@
 		<ul class="carousel-indicators">
 			<li data-target="#demo" data-slide-to="0" class="active"></li>
 			<li data-target="#demo" data-slide-to="1"></li>
-			<li data-target="#demo" data-slide-to="2"></li>
+			<li data-target="#demo" data-slide-to="2"></li>			
 		</ul>
 		<!-- The slideshow -->
 		<div class="carousel-inner" style="margin-top: 56px">
@@ -47,7 +47,7 @@
 			<div class="carousel-item">
 				<c:url var="path" value="/image/banner3.jpg" />
 				<img width="100%" src="${path}" alt="New York">
-			</div>
+			</div>			
 		</div>
 		<!-- Left and right controls -->
 		<a class="carousel-control-prev" href="#slideshow" data-slide="prev">

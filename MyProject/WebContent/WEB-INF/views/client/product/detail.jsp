@@ -80,7 +80,7 @@
 			<div class="col-md-1"></div>
 		</div>
 	</div>
-	
+	<div style="margin-bottom:20px"></div>	
 	<c:import url="/WEB-INF/views/client/include/footer.jsp"/>
 </body>
 </html>

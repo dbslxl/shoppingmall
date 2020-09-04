@@ -53,7 +53,7 @@
 						<input type="hidden" name="content_board_category_idx" value="${board_category_idx}"/>
 						<div class="form-group">
 							<label for="board_name">게시판명</label>
-							<input type="text" id="board_name" class="form-control" value="${board_category_idx}" disabled="disabled">
+							<input type="text" id="board_name" class="form-control" value="${categoryBean.board_category_name}" disabled="disabled">
 						</div>
 						<div class="form-group">
 							<label for="board_subject">제목</label>

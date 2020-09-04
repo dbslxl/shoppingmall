@@ -152,10 +152,13 @@ public class ClientController {
 	@GetMapping("/board/write")
 	public String board_write(@RequestParam int board_category_idx,Model model){
 		model.addAttribute("board_category_idx",board_category_idx);
+		BoardCategoryBean categoryBean = boardService.getBoardCategoryInfo(board_category_idx);
+		model.addAttribute("categoryBean",categoryBean);
 		return "client/board/write";
 	}
 	@PostMapping("/board/write_pro")
 	public String board_write_pro(@ModelAttribute ContentBean contentBean, HttpServletRequest request) {
+		
 		contentBean.setContent_writer_idx(loginUserBean.getUser_idx());
 		contentBean.setContent_ip(request.getRemoteAddr());
 		boardService.addContent(contentBean);
